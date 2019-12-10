@@ -34,6 +34,8 @@
 \usepackage{tikz}
 \usetikzlibrary{external}
 \tikzexternalize[prefix=plots/]
+% package to determine line width
+\usepackage{layouts}
 
 \newcommand{\R}{\mathbb{R}}
 
@@ -44,10 +46,31 @@
 
 \maketitle
 
+\section*{Question 1}
+\subsection*{(a)}
+The value for the intercept of the fit is $1.0321764$ and for the rico of the fit is $0.1904323$
+\begin{figure}[h]
+	\centering
+	\input{fit_1a.tex}
+	\caption{line fit throught the data in Ex1.txt}
+	\label{fig:fit-1a}
+\end{figure}
+
+\subsection*{(b)}
+Using the result from section 7.4.1 in <REFERENCE cursus> we know that the random variable
+\begin{equation}
+	T = \frac{\beta_1}{\sqrt{ \frac{S^2}{ \sum_{i=1}^{n}(x_i-\bar{x}^2)}}}
+\end{equation}
+has a Student distribution with $n-2$ degrees of freedom. The test value is $0.345$. Using a student-t distribution with $60-2=58$ degrees of freedom we find a p-value of $0.366$. At the confidence level $\alpha=0.01$, we have that $\beta_1=0$.
+
 \begin{figure}[h]
 	\centering
 	\input{qq-plot.tex}
+	\caption{qq plot for the errors on the fit}
+	\label{fig:qqplot-1c}
 \end{figure}
-blablablabla
+
+%\printinunitsof{in}\prntlen{\textwidth}
+
 
 \end{document}
