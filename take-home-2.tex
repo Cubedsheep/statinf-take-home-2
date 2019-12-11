@@ -61,7 +61,11 @@ Using the result from section 7.4.1 in <REFERENCE cursus> we know that the rando
 \begin{equation}
 	T = \frac{\beta_1}{\sqrt{ \frac{S^2}{ \sum_{i=1}^{n}(x_i-\bar{x}^2)}}}
 \end{equation}
-has a Student distribution with $n-2$ degrees of freedom. The test value is $0.345$. Using a student-t distribution with $60-2=58$ degrees of freedom we find a p-value of $0.366$. At the confidence level $\alpha=0.01$, we have that $\beta_1=0$.
+has a Student distribution with $n-2$ degrees of freedom. The test value is $2.603$. Using a student-t distribution with $60-2=58$ degrees of freedom we find a p-value of $0.0117$. At the confidence level $\alpha=0.01$, the null hypothesis that $\beta_1=0$ holds. The $99\%$ confidence region for the test value is $[-2.663, 2.663]$.
+
+\subsection*{(c)}
+A q-q plot is a plot where the quantiles of the assumed distribution are plotted against the quantiles from the sample. So in a sample of $n$ points where we label the observation $x_i, i \in \{1,2, \ldots, n\}$ from lowest to highest, the ith point will be plotted at the $(Q(i/n), x_i)$. 
+Here $Q(x)$ is the quantile function of the assumed distribution. This is a function such that $ P( X < Q(p)) = p$. If the assumed distribution is a good model for the observed sample, the points will well fitted by a linear function.
 
 \begin{figure}[h]
 	\centering

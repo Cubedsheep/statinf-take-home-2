@@ -76,17 +76,21 @@ dev.off()
 # b #
 #####
 print("q1-b")
-X_inv = solve(X)	# calculate inverse of the matrix x
-C = c(0, 1)		# we ar interested in the second variable (the slope)
-S2 = anova(fit)$Sum[2]	# estimate for the variance of the errors
-Df = anova(fit)$Df[2]	# degrees of freedom of the student-t distribution
+X_inv = solve(X)		# calculate inverse of the matrix x
+C = c(0, 1)			# we are interested in the second variable (the slope)
+Df = anova(fit)$Df[2]		# degrees of freedom of the student-t distribution
+S2 = anova(fit)$Sum[2]/(Df-1)	# estimate for the variance of the errors
 # calculate the value to test, formula P. 200
 test_val = coeffs[2]/sqrt(t(C) %*% X_inv %*% C*S2)
+# calculate the 99% confidence region
+alpha = 0.01
+x_max = qt(1-alpha/2, Df, 0)
 
 # do the test
-clevel = pt(test_val, Df, 0)
-sprintf("p-value: %f", (1-clevel))
+clevel = pt(test_val, Df, 0)	# chance of x being smaller than test_val. 
+sprintf("p-value: %f", (1-clevel)*2)	# (1-clevel)*2 is the chance of |x| > test_val
 sprintf("test value: %f", test_val)
+sprintf("alpha=%f confidence region: [%f, %f]", alpha*100, -x_max, x_max)
 
 
 #####
@@ -114,36 +118,3 @@ print("q1-d")
 # e #
 #####
 print("q2-e")
-
-#####################################################
-#   ___                  _   _               ____   #
-#  / _ \ _   _  ___  ___| |_(_) ___  _ __   |___ \  #
-# | | | | | | |/ _ \/ __| __| |/ _ \| '_ \    __) | #
-# | |_| | |_| |  __/\__ \ |_| | (_) | | | |  / __/  #
-#  \__\_\\__,_|\___||___/\__|_|\___/|_| |_| |_____| #
-# 						    #
-#####################################################
-
-
-
-#####################################################
-#   ___                  _   _               _____  #
-#  / _ \ _   _  ___  ___| |_(_) ___  _ __   |___ /  #
-# | | | | | | |/ _ \/ __| __| |/ _ \| '_ \    |_ \  #
-# | |_| | |_| |  __/\__ \ |_| | (_) | | | |  ___) | #
-#  \__\_\\__,_|\___||___/\__|_|\___/|_| |_| |____/  #
-#						    #
-#####################################################
-
-
-#####################################################
-#  ___                  _   _               _  _    #
-# / _ \ _   _  ___  ___| |_(_) ___  _ __   | || |   #
-#| | | | | | |/ _ \/ __| __| |/ _ \| '_ \  | || |_  #
-#| |_| | |_| |  __/\__ \ |_| | (_) | | | | |__   _| #
-# \__\_\\__,_|\___||___/\__|_|\___/|_| |_|    |_|   #
-#						    #
-#####################################################
-
-
-
