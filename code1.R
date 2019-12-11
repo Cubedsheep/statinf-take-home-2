@@ -79,7 +79,7 @@ print("q1-b")
 X_inv = solve(X)		# calculate inverse of the matrix x
 C = c(0, 1)			# we are interested in the second variable (the slope)
 Df = anova(fit)$Df[2]		# degrees of freedom of the student-t distribution
-S2 = anova(fit)$Sum[2]/(Df-1)	# estimate for the variance of the errors
+S2 = anova(fit)$Sum[2]/(Df)	# estimate for the variance of the errors
 # calculate the value to test, formula P. 200
 test_val = coeffs[2]/sqrt(t(C) %*% X_inv %*% C*S2)
 # calculate the 99% confidence region
@@ -118,3 +118,10 @@ print("q1-d")
 # e #
 #####
 print("q2-e")
+
+# test the assumption of normality of the errors with the shapira-wilk test
+print(shapiro.test(res))
+# p-value of 0.14, we accept normality.
+# a 99% confidence region was already constructed in question (b)
+
+# construct a confidence interval for other parameter

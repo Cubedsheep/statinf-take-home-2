@@ -74,6 +74,33 @@ Here $Q(x)$ is the quantile function of the assumed distribution. This is a func
 	\label{fig:qqplot-1c}
 \end{figure}
 
+\section*{Question 3}
+\subsection*{(a)}
+
+The values for the fitted coefficients with ordinary least squares are: $[0.4994, 1.1985, -2.4959, 1.2082]$. In figure \ref{fig:fit-3} the fit is plotted along with the data. 
+\begin{figure}
+	\centering
+	\input{fit_3.tex}
+	\caption{fit of cubic function throught the data in ex3.txt using ordinary least squares}
+	\label{fig:fit-3}
+\end{figure}
+
+\subsection*{(b)}
+The coeffitients fitted with the weighted least square algorithm are $[0.5003, 0.9669, -1.9655, 0.99100]$.
+
+\subsection*{(c)}
+The coefficients that are calculated using the least squares method are closer to the real values then the ones calculated using the ordinary least squares. To really say something about the difference and how well they match the given real values of the function we need more information about the distribution of the parameters.
+
+\subsection*{(d)}
+I guess I will have to adjust the derivation for ordinary least squares from the book???
+
+\section*{Acknowledgements}
+Rune Buckinx and Michaël Maex for helping to fix stupid mistakes in stupid R code
+Seppe for stupid discussions about how well the questions are asked
+Thibeau for organising a group crying session
+Robbe for genuinly good input about trying to solve stupid questions
+
+
 %\printinunitsof{in}\prntlen{\textwidth}
 
 
