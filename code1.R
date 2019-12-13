@@ -52,7 +52,7 @@ tikz(file = "fit_1a.tex", width=0.9*LINEWIDTH, height = 0.7*LINEWIDTH);
 par(mfrow=c(1,1))
 
 # plot the data
-plot(X1, Y, xlab="V1", ylab="V2")
+plot(X1, Y, xlab="V1", ylab="V2", pch=20, ylim=c(0,2.2))
 # plot the line fit
 x = seq(min(X1)-0.5, max(X1)+0.5, length.out=20)
 coeffs = beta
@@ -98,7 +98,7 @@ res = Y - X%*%beta
 # qq-plot of the residuals
 tikz(file = "qq-plot.tex", width = 0.9*LINEWIDTH, height = 0.7*LINEWIDTH)
 par(mfrow=c(1, 1))
-qqnorm(res)
+qqnorm(res, pch=20)
 qqline(res)
 
 # save the plot

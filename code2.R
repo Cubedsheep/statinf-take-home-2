@@ -28,18 +28,25 @@ LINEWIDTH = 6.02872
 #####################################################
 
 data = read.csv("ex2.txt", sep=" ");
+X1 = data$V1
+Y = data$V2
+X = cbind(rep(1, length(X1)), X1)
 
 #####
 # a #
 #####
+print("q2-a:")
 
-fit = lm(V2~V1, data)
-print(fit$coefficients)
-print(anova(fit))
+beta = solve(t(X)%*%X) %*% t(X)%*%Y
+print(beta)
+# calculate the RSS
+RSS = t(Y-X%*%beta) %*% (Y-X%*%beta)
+print(RSS)
 
 #####
 # c #
 #####
+print("q2-c:")
 
 # construct the diagonal matrix
 n = length(data$V1)
@@ -56,20 +63,21 @@ m[n,1] = sigma*rho^(n-1)
 diag(m) = rep(sigma, n)
 P = eigen(m)$vec
 Pi = t(P)
-#print(P %*% Pi)
+##print(P %*% Pi)
 # this is (almost) the identity matrix
-X2 = P %*% data$V1
-Y2 = P %*% data$V2
+Xprime = P %*% X
+Yprime = P %*% Y
 errors = P %*% rep(sqrt(sigma), n)
 errors = errors^2
-#print(P)
-#print(X2)
-#print(Y2)
-#print(errors)
+##print(P)
+##print(X2)
+##print(Y2)
+##print(errors)
 
 # do the linear regression
-df = data.frame("V1"=X2, "V2"=Y2)
+beta = solve(t(Xprime)%*%Xprime) %*% t(Xprime)%*%Yprime
 #print(df)
-fit = lm(V2 ~ V1, df)
-print(fit$coefficients)
-print(anova(fit))
+print(beta)
+# calculate the RSS
+RSS = t(Yprime-Xprime%*%beta) %*% (Yprime-Xprime%*%beta)
+print(RSS)

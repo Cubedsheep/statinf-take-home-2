@@ -122,13 +122,26 @@ The off-diagonal elements, so the covariances, are (suppose $i < j$:
 				    &= \rho^{i-j} \frac{25}{9}
 \end{align*}
 So the matrix V has $ \frac{25}{9}$ on the diagonal, $ \frac{25}{9}\rho $ on the two sub-diagonals next to the diagonal, $ \frac{25}{9} \rho^k$ on the $k$th sub-diagonal.
-the matrix $V$ can be diagonalized with an orthogonal transformation $M$: $\Lambda = MVM^T$. When we use the definition of the variance-covariance matrix (where $\mathbf{\epsilon}$ denotes the column vector with the errors) we find:
+the matrix $V$ can be diagonalized with an orthogonal (or unitary) transformation $U$: $\Lambda = MVM^T$. When we use the definition of the variance-covariance matrix (where $\mathbf{\epsilon}$ denotes the column vector with the errors) we find:
 \begin{align*}
 	V &= E( (\mathbf{\epsilon} - E(\mathbf{\epsilon})) (\mathbf{\epsilon} - E(\mathbf{\epsilon}))^T)\\
-	\Leftrightarrow \Lambda &= M E( \mathbf{\epsilon} \mathbf{\epsilon}^T) M^T\\
-	\Leftrightarrow \Lambda &= E( (M\mathbf{\epsilon})(M\mathbf{\epsilon})^T)\\
+	\Leftrightarrow \Lambda &= U E( \mathbf{\epsilon} \mathbf{\epsilon}^T) U^T\\
+	\Leftrightarrow \Lambda &= E( (U\mathbf{\epsilon})(U\mathbf{\epsilon})^T)\\
 \end{align*}
-Where we used that $E(\mathbf{\epsilon} = \mathbf{0})$. The vector $M \mathbf{\epsilon}$ has variance-covariance matrix $\Lambda$ so we conclude that it is a vector of uncorrelated stochastic variables.
+Where we used that $E(\mathbf{\epsilon} = \mathbf{0})$. The vector $U \mathbf{\epsilon}$ has variance-covariance matrix $\Lambda$ so we conclude that it is a vector of uncorrelated stochastic variables.
+
+The value for $\hat{\beta}_{OLS}$ that we find using these uncorrelated errors is exactly the same as with the uncorrelated errors:
+\begin{equation*}
+	\hat{\beta}_{OLS} = (3.923161, 1.214355)^T
+\end{equation*}
+This is expected because we used a unitary transformation to get uncorrelated errors and by filling this in the expression for the Sum of squares of the remainders we find:
+\begin{align*}
+	RSS(\hat{\beta}_{Uncorrelated}) &= (UY-UX\beta)^T(UY-UX\beta)\\
+		   &= (Y-X\beta)^T U^T U (Y-X\beta)\\
+		   &= (Y-X\beta)^T I (Y-X\beta)\\
+		   &= RSS(\hat{\beta}_{Correlated})
+\end{align*}
+which means the RSS for the correlated and the uncorrelated errors will have the same optimal $\hat{\beta}$.
 
 \section*{Question 3}
 
