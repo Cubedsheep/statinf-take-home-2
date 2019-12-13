@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex take-home-2"] 1576257828 "take-home-2.aux" "take-home-2.bbl" "take-home-2" 1576257902
+["bibtex take-home-2"] 1576261824 "take-home-2.aux" "take-home-2.bbl" "take-home-2" 1576262714
   "/usr/share/texlive/texmf-dist/bibtex/bst/biblatex/biblatex.bst" 1541279461 64114 9f5431e5c511cac88d0dcd7e87bd2d0e ""
-  "take-home-2-blx.bib" 1576257902 332 c80cc8eb6e15cd6e844e31e86ad5e8db "pdflatex"
-  "take-home-2.aux" 1576257902 2491 831d1e8fd97b91fea105d5206aaf3844 "pdflatex"
+  "take-home-2-blx.bib" 1576262714 332 c80cc8eb6e15cd6e844e31e86ad5e8db "pdflatex"
+  "take-home-2.aux" 1576262714 2543 3c5077855201f36a4b00769445bf8b77 "pdflatex"
   (generated)
   "take-home-2.blg"
   "take-home-2.bbl"
-["pdflatex"] 1576257901 "take-home-2.tex" "take-home-2.pdf" "take-home-2" 1576257902
+["pdflatex"] 1576262713 "take-home-2.tex" "take-home-2.pdf" "take-home-2" 1576262714
   "/dev/null" 1576004447 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/home/pieter/.texlive2019/texmf-var/web2c/pdftex/pdflatex.fmt" 1572948040 3101147 277ac566a8ecbea965ffa02b7d07a7e5 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
@@ -251,16 +251,16 @@
   "plots/take-home-2-figure3.pdf" 1576257901 35928 6b0dc772c311309bb3bd29d0a1401a2f ""
   "qq-plot.tex" 1576252527 10587 0b84eb6272a1c50c59aff36d2fd2079e ""
   "sample-4a-xy.tex" 1576245408 25089 af3d1966c0ed73478be91afaf426981b ""
-  "take-home-2.aux" 1576257902 2491 831d1e8fd97b91fea105d5206aaf3844 "pdflatex"
-  "take-home-2.bbl" 1576257828 512 7d676de3cd541f6eb42b3eeba217a84b "bibtex take-home-2"
-  "take-home-2.out" 1576257902 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "take-home-2.run.xml" 1576257902 2549 4a29d2866bb8be7690c60d5e85f1cefd "pdflatex"
-  "take-home-2.tex" 1576257894 9378 32edbdd85eb7c5fbeed628288ba5f42e ""
+  "take-home-2.aux" 1576262714 2543 3c5077855201f36a4b00769445bf8b77 "pdflatex"
+  "take-home-2.bbl" 1576261824 512 7d676de3cd541f6eb42b3eeba217a84b "bibtex take-home-2"
+  "take-home-2.out" 1576262714 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "take-home-2.run.xml" 1576262714 2549 4a29d2866bb8be7690c60d5e85f1cefd "pdflatex"
+  "take-home-2.tex" 1576262711 10654 30da3cf8e10bdfa26f1a9aa3ad46e6cf ""
   (generated)
-  "take-home-2.log"
-  "take-home-2.auxlock"
-  "take-home-2-blx.bib"
   "take-home-2.run.xml"
   "take-home-2.aux"
+  "take-home-2-blx.bib"
+  "take-home-2.auxlock"
   "take-home-2.out"
   "take-home-2.pdf"
+  "take-home-2.log"

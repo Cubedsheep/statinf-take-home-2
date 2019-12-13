@@ -74,7 +74,7 @@ Here $Q(x)$ is the quantile function of the assumed distribution. This is a func
 	\label{fig:qqplot-1c}
 \end{figure}
 
-\subsection*{(d)}
+\subsection*{(e)}
 We use the formula from section 7.5.4 in the book to find a confidence region for $\mathbf{\beta}$. THis region is of the form:
 \begin{equation}
 	\left\{ \beta \bigg| \frac{(\hat{\beta}-\beta)^T (X^TX) (\hat{\beta}-\beta)}{pS^2} \leq F_{p,n-p}(1-\alpha) \right\}
@@ -158,14 +158,34 @@ The values for the fitted coefficients with ordinary least squares are: $[0.4994
 The coeffitients fitted with the weighted least square algorithm are $[0.5003, 0.9669, -1.9655, 0.9910]$.
 
 \subsection*{(c)}
-The coefficients that are calculated using the least squares method are closer to the real values then the ones calculated using the ordinary least squares. To really say something about the difference and how well they match the given real values of the function we need more information about the distribution of the parameters.
+The coefficients that are calculated using the least squares method are closer to the real values than the ones calculated using the ordinary least squares. To really say something about the difference and how well they match the given real values of the function we need more information about the distribution of the parameters.
+In figure \ref{fig:fit-3} the two fits are plotted together with the data to fit through.
 
 \subsection*{(d)}
-Using the result from class that the distribution is given by:
+To derive the distribution of $\hat{\beta}_{WLS}$ we start from the distribution for the errors, which is known:
 \begin{equation*}
-	\hat{\beta}_{WLS} = (X^TW^{-1}X)^{-1} X^T W^{-1}Y \sim N_p(\beta, (X^TW^{-1}X)^{-1})
+	\mathbf{\epsilon} \sim N_n(0, W)
 \end{equation*}
-This result can be derived by noting that the vector $Y$ has a multinormal distribution with mean $\bar{Y}$ and as variance-covariance matrix $W$. Therefore $\hat{\beta}_{WLS}$ is a linear combination of multinormal distributions and is itself again a multinormal distribution. <REF NAAR FORMULE?>.
+Where $W$ is a diagonal matrix with at position $W_{ii}$ the variance of $\epsilon_i$. This is the same matrix $W$ used in the formula to calculate the estimate for $\beta$ with the weighted least squares method. This formula is:
+\begin{equation}
+	\hat{\beta}_{WLS} = (X^TW^{-1}X)^{-1} X^T W^{-1}Y
+	\label{eq:beta_WLS}
+\end{equation}
+here $Y$ is the vector with samples used to calculate the least squares estimator. $X$ is the matrix as defined on page 193 in the course notes, this matrix is deterministic. $Y$ can be rewritten as follows:
+\begin{equation*}
+	Y = X \beta + \mathbf{\epsilon}
+\end{equation*}
+substituting this into equation \ref{eq:beta_WLS} yields:
+\begin{align*}
+	\hat{\beta}_{WLS} &= (X^TW^{-1}X)^{-1} X^TW^{-1}(X\beta+\mathbf{\epsilon})\\
+			  &= (X^TW^{-1}X)^{-1} (X^TW^{-1}X) \beta + (X^TW^{-1}X)^{-1} X^TW^{-1}\mathbf{\epsilon}\\
+			  &= \beta + X^{-1} W X^{-T} X^T W^{-1} \mathbf{\epsilon}\\
+			  &= \beta + X^{-1} \mathbf{\epsilon} 
+\end{align*}
+We see this is a linear transformation of a multivariate normal distribution with mean $\mathbf{0}$ and as variance-covariance matrix $\Sigma_{\epsilon}=W$. Again using the results from section 6.2, page 172 in the course notes we find that the distribution of $\hat{\beta}_{WLS}$ is a multivariate normal distribution with mean $\beta$ and variance-covariance matrix $X^{-1} W X^{-T} = (X^T W^{-1} X)^{-1}$. We conclude that:
+\begin{equation*}
+	\hat{\beta}_{WLS} \sim N_p(\beta, (X^TW^{-1}X)^{-1})
+\end{equation*}
 
 
 \section*{Question 4}
