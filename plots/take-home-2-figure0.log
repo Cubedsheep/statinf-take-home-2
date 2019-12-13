@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.11.5)  13 DEC 2019 16:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.11.5)  13 DEC 2019 18:24
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1289,17 +1289,17 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 A tikzpicture has been optimized away. Use '/tikz/external/optimize=false' to disable this.
 )
 
-LaTeX Warning: Reference `fig:fit-3' on page 3 undefined on input line 136.
+LaTeX Warning: Reference `fig:fit-3' on page 3 undefined on input line 149.
 
 (./fit_3.tex
 A tikzpicture has been optimized away. Use '/tikz/external/optimize=false' to disable this.
 ) (./sample-4a-xy.tex
 A tikzpicture has been optimized away. Use '/tikz/external/optimize=false' to disable this.
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 182.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 182.
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 182.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 182.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 195.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 195.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 195.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 195.
 
 LaTeX Warning: There were undefined references.
 

@@ -26,68 +26,45 @@ LINEWIDTH = 6.02872
 # import the data
 data = read.csv("ex3.txt", sep=" ")
 X1 = data$V1
-X2 = data$V2
+Y = data$V2
+X = cbind(rep(1, length(X1)), X1, X1^2, X1^3)
 
 #####
 # a #
 #####
-
+print("ex-3a:")
 # fit the model without taking the size of the errors into account
-fit = lm(V2~V1 + I(V1^2) + I(V1^3), data, x=TRUE)
-print(fit)
+beta = solve(t(X)%*%X) %*% t(X)%*%Y	# P. 190
+print(beta)
 
 # make a plot of the data and the fitted model
 # initalization
 tikz(file = "fit_3.tex", width=0.9*LINEWIDTH, height = 0.7*LINEWIDTH);
 par(mfrow=c(1,1))
-
 # plot the data
-plot(X1, X2, xlab="V1", ylab="V2", type="p", pch=20, col="green")
+plot(X1, Y, xlab="V1", ylab="V2", pch=20)
 
-coeffs = fit$coefficients
-X = seq(min(X1)-0.1, max(X1)+0.1, length.out=100)
-Y = coeffs[1] + coeffs[2]*X + coeffs[3]*X*X + coeffs[4]*X*X*X
-lines(X, Y, col="red")
+coeffs = beta
+x = seq(min(X1)-0.1, max(X1)+0.1, length.out=100)
+y = coeffs[1] + coeffs[2]*x + coeffs[3]*x^2 + coeffs[4]*x^3
+lines(x, y, col="blue")
 
 
 #####
 # b #
 #####
-print("q-3b")
+print("ex-3b:")
+# calculate the vector of weights
+sigma = (X1 < 4/3)*(X1^2) + (X1>= 4/3)*4*(X1-2)^2
+W = diag(sigma^-2)
 
-# calculate the weights
-w = (X1 < 4/3)*(X1^2) + (X1 >=4/3 )*(X1<= 2)*4*(X1 - 2)^2
+beta = solve(t(X)%*%W%*%X) %*% t(X)%*%W%*%Y
+print(beta)
 
-# fit the model without taking the size of the errors into account
-fit = lm(V2~V1 + I(V1^2) + I(V1^3), data, x=TRUE, weights=1/w^2)
-print(fit)
-
-coeffs = fit$coefficients
-X = seq(min(X1)-0.1, max(X1)+0.1, length.out=100)
-Y = coeffs[1] + coeffs[2]*X + coeffs[3]*X*X + coeffs[4]*X*X*X
-lines(X, Y, col="blue")
-legend(0, -1, legend=c("data", "OLS fit", "WLS fit"), col=c("green", "red", "blue"), 
-       lty=c(20, 1, 1), pch=20)
+coeffs = beta
+x = seq(min(X1)-0.1, max(X1)+0.1, length.out=100)
+y = coeffs[1] + coeffs[2]*x + coeffs[3]*x^2 + coeffs[4]*x^3
+lines(x, y, col="red")
 dev.off()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
