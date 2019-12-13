@@ -33,8 +33,8 @@ print("Question 1:")
 # read the data in ex1.txt and save it to a dataframe
 data = read.csv("ex1.txt", sep=" ");
 X1 = data$V1
-X2 = data$V2
-
+Y = data$V2
+X = cbind(rep(1, length(X1)), X1)
 
 #####
 # a #
@@ -43,15 +43,8 @@ print("q1-a:")
 
 # fit a linear relation with data in column V1 as explanatory variable and 
 # data in column V2 as dependent
-fit = lm(V2~V1, data, x=TRUE)
 # get the matrix XtX
-X = t(fit$x) %*% fit$x
-
-
-# print a summary table of the fit
-print("summary of linear fit through data in ex1.txt")
-print(anova(fit))
-
+beta = solve(t(X)%*%X) %*% t(X)%*%Y	# P. 190
 
 # make a plot of the fit
 # initalization
@@ -59,10 +52,10 @@ tikz(file = "fit_1a.tex", width=0.9*LINEWIDTH, height = 0.7*LINEWIDTH);
 par(mfrow=c(1,1))
 
 # plot the data
-plot(X1, X2, xlab="V1", ylab="V2")
+plot(X1, Y, xlab="V1", ylab="V2")
 # plot the line fit
 x = seq(min(X1)-0.5, max(X1)+0.5, length.out=20)
-coeffs = fit$coefficients
+coeffs = beta
 
 # print the fitted coefficients
 print("coefficienten fit:")
@@ -76,10 +69,12 @@ dev.off()
 # b #
 #####
 print("q1-b")
-X_inv = solve(X)		# calculate inverse of the matrix x
+Df = length(X1) - 2		# degrees of freedom of the data
+X_inv = solve(t(X)%*%X)		# calculate inverse of the matrix x
 C = c(0, 1)			# we are interested in the second variable (the slope)
-Df = anova(fit)$Df[2]		# degrees of freedom of the student-t distribution
-S2 = anova(fit)$Sum[2]/(Df)	# estimate for the variance of the errors
+RSS = t(Y-X%*%beta) %*% (Y-X%*%beta)	# calculate the sum of squares of the residuals
+S2 = RSS/(Df)			# estimate for the variance of the errors
+
 # calculate the value to test, formula P. 200
 test_val = coeffs[2]/sqrt(t(C) %*% X_inv %*% C*S2)
 # calculate the 99% confidence region
@@ -99,7 +94,7 @@ sprintf("alpha=%f confidence region: [%f, %f]", alpha*100, -x_max, x_max)
 print("q1-c")
 
 # get the residuals
-res = summary(fit)$residuals
+res = Y - X%*%beta
 # qq-plot of the residuals
 tikz(file = "qq-plot.tex", width = 0.9*LINEWIDTH, height = 0.7*LINEWIDTH)
 par(mfrow=c(1, 1))
@@ -117,11 +112,18 @@ print("q1-d")
 #####
 # e #
 #####
-print("q2-e")
+print("q1-e")
 
-# test the assumption of normality of the errors with the shapira-wilk test
+# test the assumption of normality of the errors with the shapiro-wilk test
 print(shapiro.test(res))
 # p-value of 0.14, we accept normality.
-# a 99% confidence region was already constructed in question (b)
+# the confidence level and corresponding t-value
+alpha = 0.01
+t_val = qf(1-alpha, 2, Df)
+S2 = RSS
 
-# construct a confidence interval for other parameter
+sprintf("test value: %.10f", t_val)
+print("S^2: %.9f", S2)
+print("matrix X^TX: ")
+print(t(X)%*%X)
+##print(eigen(t(X)%*%X))

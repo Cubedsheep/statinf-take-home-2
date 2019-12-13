@@ -74,9 +74,65 @@ Here $Q(x)$ is the quantile function of the assumed distribution. This is a func
 	\label{fig:qqplot-1c}
 \end{figure}
 
-\section*{Question 3}
-\subsection*{(a)}
+\subsection*{(d)}
+We use the formula from section 7.5.4 in the book to find a confidence region for $\mathbf{\beta}$. THis region is of the form:
+\begin{equation}
+	\left\{ \beta \bigg| \frac{(\hat{\beta}-\beta)^T (X^TX) (\hat{\beta}-\beta)}{pS^2} \leq F_{p,n-p}(1-\alpha) \right\}
+\end{equation}
+Because the matrix $X^TX$ is positive definite, this is an ellips with center $\mathbf{\beta}$ and axes along the eigenvectors of $X^TX$. The upper bound for this expression is in this case: $F_{2,58(0.99) = 4.9910}$ Filling in the values for $X, p=2, n=60$ and $S^2$ we get the following result (obtained using the cAS system sympy):
+\begin{equation*}
+	\{ \beta | 5.2596 \alpha^{2} + 0.8222 \alpha \beta - 0.4950 \alpha + 1.6711 \beta^{2} - 0.6629 \beta + 0.0711 \leq 4.9910 \}
+\end{equation*}
 
+
+\section*{Question 2}
+
+\subsection*{(a)}
+The value for $\hat{\beta}_{OLS}$ obtained using ordinary least squares with the correlated errors is:
+\begin{equation}
+	\hat{\beta}_{OLS} = (3.923161, 1.214355)^T
+\end{equation}
+
+\subsection*{(b)}
+we know that the variance is the same for all $\epsilon_i$ and that they obey the recursive relation:
+\begin{equation*}
+	\epsilon_i = \rho \epsilon_{i-1} + \eta_i
+\end{equation*}
+with $\eta_i$ standard normaly distributed. Using $Var(\epsilon_i) =Var(\epsilon_j)$ for all $i, j \in \{1, 2, \ldots 80\}$ we find:
+\begin{align*}
+	Var(\epsilon_i) &= \rho^2 Var(\epsilon_{i-1}) + Var(\eta_i)\\
+	\Leftrightarrow Var(\epsilon_i) &= \rho^2 Var(\epsilon_i) + 1\\
+	\Leftrightarrow Var(\epsilon_i) &= \frac{1}{1-\rho^2}\\
+					&= \frac{25}{9}\\
+					&= 2.777 \ldots
+\end{align*}
+We conclude that the variance of $\epsilon$ is $ \frac{25}{9}$.
+
+\subsection*{(c)}
+To transform the errors to a basis where they are no longer correlated we will use the variance-covariance matrix $V$ of the errors. 
+The off-diagonal elements, so the covariances, are (suppose $i < j$:
+\begin{align*}
+	Cov(\epsilon_i, \epsilon_j) &= E[(\epsilon_i-E(\epsilon_i))(\epsilon_j-E(epsilon_j))]\\
+				    &= E[\epsilon_i \epsilon_j]\\
+				    &= E[\epsilon_i (\rho\epsilon_{j-1} \eta_j)]\\
+				    &\vdots\\
+				    &= E[\epsilon_i (\rho^{j-i} \epsilon_i + \rho^{j-i-1}\eta_i + \rho^{j-i-2}\eta_{i-2} + \ldots + \eta_j)]\\
+				    &= E[\epsilon_i \rho^{i-j} \epsilon_i]\\
+				    &= \rho^{i-j} Var(\epsilon)\\
+				    &= \rho^{i-j} \frac{25}{9}
+\end{align*}
+So the matrix V has $ \frac{25}{9}$ on the diagonal, $ \frac{25}{9}\rho $ on the two sub-diagonals next to the diagonal, $ \frac{25}{9} \rho^k$ on the $k$th sub-diagonal.
+the matrix $V$ can be diagonalized with an orthogonal transformation $M$: $\Lambda = MVM^T$. When we use the definition of the variance-covariance matrix (where $\mathbf{\epsilon}$ denotes the column vector with the errors) we find:
+\begin{align*}
+	V &= E( (\mathbf{\epsilon} - E(\mathbf{\epsilon})) (\mathbf{\epsilon} - E(\mathbf{\epsilon}))^T)\\
+	\Leftrightarrow \Lambda &= M E( \mathbf{\epsilon} \mathbf{\epsilon}^T) M^T\\
+	\Leftrightarrow \Lambda &= E( (M\mathbf{\epsilon})(M\mathbf{\epsilon})^T)\\
+\end{align*}
+Where we used that $E(\mathbf{\epsilon} = \mathbf{0})$. The vector $M \mathbf{\epsilon}$ has variance-covariance matrix $\Lambda$ so we conclude that it is a vector of uncorrelated stochastic variables.
+
+\section*{Question 3}
+
+\subsection*{(a)}
 The values for the fitted coefficients with ordinary least squares are: $[0.4994, 1.1985, -2.4959, 1.2082]$. In figure \ref{fig:fit-3} the fit is plotted along with the data. 
 \begin{figure}
 	\centering
@@ -92,7 +148,26 @@ The coeffitients fitted with the weighted least square algorithm are $[0.5003, 0
 The coefficients that are calculated using the least squares method are closer to the real values then the ones calculated using the ordinary least squares. To really say something about the difference and how well they match the given real values of the function we need more information about the distribution of the parameters.
 
 \subsection*{(d)}
-I guess I will have to adjust the derivation for ordinary least squares from the book???
+Using the result from class that the distribution is given by:
+\begin{equation*}
+	\hat{\beta}_{WLS} = (X^TW^{-1}X)^{-1} X^T W^{-1}Y \sim N_p(\beta, (X^TW^{-1}X)^{-1})
+\end{equation*}
+This result can be derived by noting that the vector $Y$ has a multinormal distribution with mean $\bar{Y}$ and as variance-covariance matrix $W$. Therefore $\hat{\beta}_{WLS}$ is a linear combination of multinormal distributions and is itself again a multinormal distribution. <REF NAAR FORMULE?>.
+
+
+\section*{Question 4}
+\subsection*{(a)}
+To generate a sample from a multi-normal distribution we work analogues to the derivation in section 6.2 in the course notes, but backwards. We are given the variance-covariance matrix $\Sigma_X$ of a multivariate normal model. This matrix must be positive definite, so the square root of this matrix exists. 
+Let $A$ be a matrix such that $AA^T=\Sigma_X$. This matrix can be found by diagonalizing $\Sigma_X$: $\Sigma_X=U\Lambda U^T$ and than taking $A = U \sqrt(\Lambda)$. We can do this because all eigenvalues of $\Sigma_X$ are positive.
+The result from section 6.2 now tells us that $X = AY + \mu$ where $Y$ is a vector of standard normal distributions.
+This observation can be used to draw a sample from $X$ by drawing $n$ independent samples from a standard normal distribution, filling them in in a vector $y$ and the calculating the sample from $X$ as $x=Ay+\mu$. This was implemented in $R$
+
+\begin{figure}
+	\centering
+	\input{sample-4a-xy.tex}
+	\caption{Projection on the $xy$-plane of the sample from the multivariate normal distribution}
+	\label{fig:sample}
+\end{figure}
 
 \section*{Acknowledgements}
 Rune Buckinx and Michaël Maex for helping to fix stupid mistakes in stupid R code

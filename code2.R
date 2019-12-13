@@ -29,7 +29,47 @@ LINEWIDTH = 6.02872
 
 data = read.csv("ex2.txt", sep=" ");
 
+#####
+# a #
+#####
+
 fit = lm(V2~V1, data)
 print(fit$coefficients)
 print(anova(fit))
 
+#####
+# c #
+#####
+
+# construct the diagonal matrix
+n = length(data$V1)
+m = matrix(nrow=n, ncol=n)
+# fill the matrix
+sigma = 25/9
+rho = 0.8
+for (i in 1:(n-2)) {
+	diag(m[(i+1):(n),(1):(n-i)]) = rep(sigma*rho^(i-1), n-i)
+	diag(m[(1):(n-i),(i+1):(n)]) = rep(sigma*rho^(i-1), n-i)
+}
+m[1,n] = sigma*rho^(n-1)
+m[n,1] = sigma*rho^(n-1)
+diag(m) = rep(sigma, n)
+P = eigen(m)$vec
+Pi = t(P)
+#print(P %*% Pi)
+# this is (almost) the identity matrix
+X2 = P %*% data$V1
+Y2 = P %*% data$V2
+errors = P %*% rep(sqrt(sigma), n)
+errors = errors^2
+#print(P)
+#print(X2)
+#print(Y2)
+#print(errors)
+
+# do the linear regression
+df = data.frame("V1"=X2, "V2"=Y2)
+#print(df)
+fit = lm(V2 ~ V1, df)
+print(fit$coefficients)
+print(anova(fit))
