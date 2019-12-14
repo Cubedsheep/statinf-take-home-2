@@ -389,6 +389,9 @@ INPUT plots/take-home-2-figure1.pdf
 INPUT plots/take-home-2-figure1.dpth
 INPUT plots/take-home-2-figure1.pdf
 INPUT ./plots/take-home-2-figure1.pdf
+INPUT region-1e.pdf
+INPUT ./region-1e.pdf
+INPUT ./region-1e.pdf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx7.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx5.tfm
@@ -406,6 +409,9 @@ INPUT plots/take-home-2-figure3.pdf
 INPUT plots/take-home-2-figure3.dpth
 INPUT plots/take-home-2-figure3.pdf
 INPUT ./plots/take-home-2-figure3.pdf
+INPUT region-3c.pdf
+INPUT ./region-3c.pdf
+INPUT ./region-3c.pdf
 INPUT take-home-2.aux
 INPUT ./take-home-2.out
 INPUT ./take-home-2.out
@@ -413,6 +419,7 @@ INPUT take-home-2.run.xml
 OUTPUT take-home-2.run.xml
 INPUT /usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb

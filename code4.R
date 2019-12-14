@@ -45,6 +45,60 @@ samples = A %*% samples_standard + mu
 
 tikz(file = "sample-4a-xy.tex", width=0.9*LINEWIDTH, height = 0.7*LINEWIDTH);
 par(mfrow=c(1,1))
-plot(samples[1,], samples[2,])
+plot(samples[1,], samples[2,], pch=20)
 # save the projection on the xy-plane
 dev.off()
+
+#####
+# b #
+#####
+
+# calculate the necessary matrices for the conditional distributions
+# for the first conditional distribution:
+Sigma11 = Sigma[1:1,1:1]
+Sigma12 = Sigma[1:1,2:3]
+Sigma21 = Sigma[2:3,1:1]
+Sigma22 = Sigma[2:3,2:3]
+
+x2 = c(1, -2)
+
+muprime = mu[1] + Sigma12 %*% solve(Sigma22) %*% (x2-mu[2:3])
+sprintf("mu_1:")
+print(muprime)
+sigmaprime = Sigma11 - Sigma12%*%solve(Sigma22)%*%Sigma21
+sprintf("sigma_prime:")
+print(sigmaprime)
+
+# for the first conditional distribution
+# first do the transformation to the random vetor Y:
+A = cbind(c(1,0), c(0,1), c(0,1))
+mu2 = A %*% mu
+Sigma2 = A %*% Sigma %*% t(A)
+
+# define the submatrices (just numbers in this case as Sigma2 is a 2x2 matrix)
+# (but use series indexing to preserve the matrix structure for the following calculations)
+Sigma11 = Sigma2[1:1,1:1]
+Sigma12 = Sigma2[1:1,2:2]
+Sigma21 = Sigma2[2:2,1:1]
+Sigma22 = Sigma2[2:2,2:2]
+ 
+x2 = c(-1)
+ 
+muprime = mu2[1:1] + Sigma12 %*% solve(Sigma22) %*% (x2-mu2[2:2])
+sprintf("mu_2:")
+print(muprime)
+sigmaprime = Sigma11 - Sigma12%*%solve(Sigma22)%*%Sigma21
+sprintf("sigma_prime2:")
+print(sigmaprime)
+
+#####
+# c #
+#####
+A = cbind(c(1,0), c(0,1), c(0,0))
+Sigma3 = A %*% Sigma %*% t(A)
+mu3 = A %*% mu
+print(Sigma3)
+print(mu3)
+
+print(qchisq(0.95, df=2))
+

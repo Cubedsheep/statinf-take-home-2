@@ -75,6 +75,12 @@ Here $Q(x)$ is the quantile function of the assumed distribution. This is a func
 \end{figure}
 
 \subsection*{(e)}
+\begin{figure}
+	\centering
+	\includegraphics[width=.9\linewidth]{region-1e.pdf}
+	\caption{A plot of the $99\%$ confidence region for $\beta$.}
+	\label{fig:1e}
+\end{figure}
 We use the formula from section 7.5.4 in the book to find a confidence region for $\mathbf{\beta}$. THis region is of the form:
 \begin{equation}
 	\left\{ \beta \bigg| \frac{(\hat{\beta}-\beta)^T (X^TX) (\hat{\beta}-\beta)}{pS^2} \leq F_{p,n-p}(1-\alpha) \right\}
@@ -83,8 +89,10 @@ Because the matrix $X^TX$ is positive definite, this is an ellips with center $\
 \begin{equation*}
 	\{ \beta | 5.2596 \alpha^{2} + 0.8222 \alpha \beta - 0.4950 \alpha + 1.6711 \beta^{2} - 0.6629 \beta + 0.0711 \leq 4.9910 \}
 \end{equation*}
+The resulting ellips is plotted in figure \ref{fig:1e}.
 
 
+\newpage
 \section*{Question 2}
 
 \subsection*{(a)}
@@ -143,6 +151,8 @@ This is expected because we used a unitary transformation to get uncorrelated er
 \end{align*}
 which means the RSS for the correlated and the uncorrelated errors will have the same optimal $\hat{\beta}$.
 
+
+\newpage
 \section*{Question 3}
 
 \subsection*{(a)}
@@ -188,6 +198,7 @@ We see this is a linear transformation of a multivariate normal distribution wit
 \end{equation*}
 
 
+\newpage
 \section*{Question 4}
 \subsection*{(a)}
 To generate a sample from a multi-normal distribution we work analogues to the derivation in section 6.2 in the course notes, but backwards. We are given the variance-covariance matrix $\Sigma_X$ of a multivariate normal model. This matrix must be positive definite, so the square root of this matrix exists. 
@@ -200,6 +211,54 @@ This observation can be used to draw a sample from $X$ by drawing $n$ independen
 	\input{sample-4a-xy.tex}
 	\caption{Projection on the $xy$-plane of the sample from the multivariate normal distribution}
 	\label{fig:sample}
+\end{figure}
+
+\subsection*{(b)}
+To compute these conditional chances we use proposition 6.2 from the course notes with the following vectors and matrices:
+\begin{align*}
+	\Sigma_{11} &= \left(1.25\right) &\Sigma_{12} = \left( 1.50, 0.5\right)\\
+	\Sigma_{21} &= \begin{pmatrix} 1.50\\ 0.50 \end{pmatrix} &\Sigma_{22} = \begin{pmatrix} 5.25 & 3.5\\ 3.5 & 3.0 \end{pmatrix}\\
+	\mathbf{X}_1 &= \begin{pmatrix} \mathbf{X}_1 \end{pmatrix} &\mathbf{x}_2 = \begin{pmatrix} 1\\-2 \end{pmatrix}
+\end{align*}
+When we fill in these values in the the formula for the distribution of the conditional distribution $f_{\mathbf{X}_1|\mathbf{X}_2}(\mathbf{x}_1, \mathbf{X}_2 = \mathbf{x}_2)$ we find the following distribution:
+\begin{equation}
+	f_{\mathbf{X}_1|\mathbf{X}_2}(\mathbf{x}_1, \mathbf{X}_2 = \mathbf{x}_2) = N_1(1, 0.446)
+\end{equation}
+The probability $P(X_1>1|X_2=1, X_3=-2)$ is equal to $0.5$ because of the symetry of the conditional probability distribution around $1$.
+
+To calculate the probability $P(X_1 > 1|X_2+X_3=1)$ we first transform the random vector $\mathbf{X}$ to the vector $\mathbf{Y} = (X_1, X_2+X_3)^T=\mathbf{A}\mathbf{X}$ where
+\begin{equation*}
+	\mathbf{A} = \begin{pmatrix} 1 & 0 & 0\\ 0 & 1 & 1 \end{pmatrix}
+\end{equation*}
+Using part (b) of proposition 6.2 we find that the distribution of $\mathbf{Y}$ is given by:
+\begin{equation*}
+	\mathbf{Y} \sim N(A\mathbf{\mu}, \mathbf{A}\Sigma\mathbf{A}^T) = N(...)
+\end{equation*}
+Observe that $P(X_1 > 1 | X_2+X_3=-1) = P(Y_1 > 1 | Y_2=-1)$. We can again use part (c) of proposition 6.2 to calculate this probability. This yields the following conditional probability distribution:
+\begin{equation*}
+	f_{\mathbf{Y}_1|\mathbf{Y}_2}(\mathbf{y}_1|\mathbf{y}_2=-1) = N(1, 0.9877)
+\end{equation*}
+Therefore $P(X_1 > 1 | X_2+X_3=-1)=0.5$.
+
+\subsection*{(c)}
+To determine the density function of $\mathbf{Y}=(X_1, X_2)^T$ We make again use of proposition 6.2 (c) with the following matrix:
+\begin{equation*}
+	\mathbf{A} = \begin{pmatrix} 1 & 0 & 0\\ 0 & 1 & 0 \end{pmatrix}
+\end{equation*}
+From which we find the probability distribution of $\mathbf{Y}$
+\begin{equation*}
+	\mathbf{Y} \sim N_2\left( \begin{pmatrix}1\\1\end{pmatrix}, \begin{pmatrix}1.25&1.50\\1.50&5.25 \end{pmatrix}\right)
+\end{equation*}
+We can now use proposition 6.1 to find the contours of of this density function. The contour that comprises $95\%$ of the probability mass is given by the following equation:
+\begin{align*}
+	Q_{\chi^2_2}(0.95) &= (\mathbf{Y}-\mathbf{\mu})^T \Sigma^{-1} (\mathbf{Y}-\mathbf{\mu})
+\end{align*}
+This region is plotted in figure
+\begin{figure}
+	\centering
+	\includegraphics[width=.9\linewidth]{region-3c.pdf}
+	\caption{The contour that comprises $95\%$ of the density of the probability density function of the random vector $\mathbf{Y}$.}
+	\label{fig:4c}
 \end{figure}
 
 \section*{Acknowledgements}

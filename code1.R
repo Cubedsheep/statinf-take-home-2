@@ -65,7 +65,7 @@ lines(x, y)
 dev.off()
 
 
-####
+#####
 # b #
 #####
 print("q1-b")
@@ -120,10 +120,10 @@ print(shapiro.test(res))
 # the confidence level and corresponding t-value
 alpha = 0.01
 t_val = qf(1-alpha, 2, Df)
-S2 = RSS
+S2 = RSS/Df
 
 sprintf("test value: %.10f", t_val)
-print("S^2: %.9f", S2)
+sprintf("S^2: %.9f", S2)
 print("matrix X^TX: ")
 print(t(X)%*%X)
 ##print(eigen(t(X)%*%X))
