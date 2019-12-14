@@ -205,7 +205,13 @@ which is the same formula for weighted least squares with the eigenvalues of the
 \begin{align*}
 	\hat{\beta_0} &= 3.630090 &t{\beta_1} = 1.180644
 \end{align*}
-with $RSS(\hat{\beta})=2.074712$. The residual least square value is a lot smaller than the one obtained with the correlated errorss. The difference in the obtained values is small, but because of the smaller RSS, the one obtained by the model with uncorrelated errors is a lot better.
+with $RSS(\hat{\beta})=2.074712$. The residual least square value is a lot smaller than the one obtained with the correlated errorss. The difference in the obtained values is small, but because of the smaller RSS, the one obtained by the model with uncorrelated errors is a lot better. In figure \ref{fig:region-2} the two $99\%$ confidence regions are plotted. The smaller ellips is the confidence region for the estimate obtained with the model where the errors are uncorrelated. Its clear that this model gives a more accurate estimate of the true value of the parameters.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=.9\linewidth]{region-2.pdf}
+	\caption{The $99\%$ confidene regions for $\hat{\beta}_{OLS}$ obtained with the original data (greater elips) and with the model where the errors are uncorrelated (smaller elips).}
+	\label{fig:region-2}
+\end{figure}
 
 \newpage
 \section*{Question 3}

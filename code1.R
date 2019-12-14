@@ -101,6 +101,9 @@ par(mfrow=c(1, 1))
 qqnorm(res, pch=20)
 qqline(res)
 
+# add lines to make clear the line goes almost throug (0,0)
+lines(c(0,0), c(-1,1), lty=2)
+lines(c(-3,3), c(0,0), lty=2)
 # save the plot
 dev.off()
 

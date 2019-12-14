@@ -83,6 +83,7 @@
       <file>plots/take-home-2-figure1-blx.bib</file>
     </requires>
     <requires type="editable">
+      <file>bibliografie.bib</file>
     </requires>
     <requires type="static">
       <file>biblatex.bst</file>

@@ -13,6 +13,7 @@
 library(ggplot2)
 # used to output tikz code to render graphs in latex
 library(tikzDevice)
+library(plot3D)
 
 # the linewidth of the latex-document in Inches. Used to correctly scale the
 # graphs for the report so font sizes are consistent.
@@ -44,8 +45,12 @@ samples_standard = matrix(rnorm(3*200), nrow=3, ncol=200)
 samples = A %*% samples_standard + mu
 
 tikz(file = "sample-4a-xy.tex", width=0.9*LINEWIDTH, height = 0.7*LINEWIDTH);
-par(mfrow=c(1,1))
-plot(samples[1,], samples[2,], pch=20)
+par(mfrow=c(2,2))
+plot(samples[1,], samples[2,], pch=20, xlab="X1", ylab="X2")
+plot(samples[2,], samples[3,], pch=20, xlab="X2", ylab="X3")
+plot(samples[3,], samples[1,], pch=20, xlab="X3", ylab="X1")
+points3D(samples[1,], samples[2,], samples[3,], pch=".", xlab="X1", ylab="X2", zlab="X3")
+
 # save the projection on the xy-plane
 dev.off()
 

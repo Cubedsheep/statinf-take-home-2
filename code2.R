@@ -43,6 +43,13 @@ print(beta)
 RSS = t(Y-X%*%beta) %*% (Y-X%*%beta)
 print(RSS)
 
+# print parameters to plot the confidence region
+print("parameters for the confidence region:")
+sprintf("S2: %.9f", RSS/(length(X1)-2))
+print(t(X)%*%X)
+sprintf("t_val: %.9f", qf(1-0.01, 2, length(X1)-2))
+sprintf("Df: %d", length(X1)-2)
+
 #####
 # c #
 #####
@@ -84,3 +91,9 @@ print(beta)
 # calculate the RSS
 RSS = t(Yprime-Xprime%*%beta) %*% (Yprime-Xprime%*%beta)
 print(RSS)
+
+# print parameters to plot the confidence region
+print("parameters for the confidence region:")
+sprintf("S2: %.9f", RSS/(length(X1)-2))
+print(t(Xprime)%*%Xprime)
+
