@@ -155,7 +155,7 @@ with $\eta_i$ standard normaly distributed. Using $Var(\epsilon_i) =Var(\epsilon
 We conclude that the variance of $\epsilon$ is $ \frac{25}{9}$.
 
 \subsection*{(c)}
-\noindent \fbox{\parbox{\linewidth}{Transform the model in such a way that the errors are no longer correlated. cCompute the ordinary least squares for this new model and compare it to the one obtained in (a)}}
+\noindent \fbox{\parbox{\linewidth}{Transform the model in such a way that the errors are no longer correlated. Compute the ordinary least squares for this new model and compare it to the one obtained in (a)}}
 
 To transform the errors to a basis where they are no longer correlated we will use the variance-covariance matrix $V$ of the errors. 
 The off-diagonal elements, so the covariances, are (suppose $i < j$:
@@ -176,21 +176,33 @@ the matrix $V$ can be diagonalized with an orthogonal (or unitary) transformatio
 	\Leftrightarrow \Lambda &= U E( \mathbf{\epsilon} \mathbf{\epsilon}^T) U^T\\
 	\Leftrightarrow \Lambda &= E( (U\mathbf{\epsilon})(U\mathbf{\epsilon})^T)\\
 \end{align*}
-Where we used that $E(\mathbf{\epsilon} = \mathbf{0})$. The vector $U \mathbf{\epsilon}$ has variance-covariance matrix $\Lambda$ so we conclude that it is a vector of uncorrelated stochastic variables.
-
-The value for $\hat{\beta}_{OLS}$ that we find using these uncorrelated errors is exactly the same as with the uncorrelated errors:
-\begin{equation*}
-	\hat{\beta}_{OLS} = (3.923161, 1.214355)^T
-\end{equation*}
-This is expected because we used a unitary transformation to get uncorrelated errors and by filling this in the expression for the Sum of squares of the remainders we find:
+Where we used that $E(\mathbf{\epsilon} = \mathbf{0})$. The vector $U \mathbf{\epsilon}$ has variance-covariance matrix $\Lambda$ therefore it is a vector of uncorrelated variables. 
+To be able to use the ordinary least squares method however, we need a vector of $i.i.d.$ variables which this vector is not, the variances are the eigenvalues of $V$. To get a transformation we can use to do the fit we need to correct this. Let $\mathbf{\epsilon}' = \sqrt{W^{-1}} U \mathbf{\epsilon}$. 
+The variance-covariance matrix of this vector is:
 \begin{align*}
-	RSS(\hat{\beta}_{Uncorrelated}) &= (UY-UX\beta)^T(UY-UX\beta)\\
-		   &= (Y-X\beta)^T U^T U (Y-X\beta)\\
-		   &= (Y-X\beta)^T I (Y-X\beta)\\
-		   &= RSS(\hat{\beta}_{Correlated})
+	E(\mathbf{\epsilon}'\mathbf{\epsilon}'^T) &= \sqrt{\Lambda^{-1}} U E(\mathbf{\epsilon}\mathbf{\epsilon}^T) U^T \sqrt{\Lambda^{-1}}\\
+						  &= \sqrt{\Lambda^{-1}} \Lambda \sqrt{\Lambda^{-1}}\\
+						  &= Id
 \end{align*}
-which means the RSS for the correlated and the uncorrelated errors will have the same optimal $\hat{\beta}$.
-
+where $Id$ is the $n\times n$ identity matrix. The vector $\mathbf{\epsilon}'$ is a vector of uncorrelated random variables with standard deviation $1$. Because they have mean $0$ and are linear combinations of Guassian distributions, we conclude that this is a vector of uncorrelated standard Gaussian distributions so when we transform the model in this way the strong Gaussian assumption is valid and we can use ordinary least squares to fit the model.
+To transform the errors, we need to transform the matrix $X$ and the vector $Y$. Let $A = \sqrt{\Lambda^{-1}}U$, $X' = AX$ and $Y' = AY$. Using this in the relation between $Y$ and $X$:
+\begin{align*}
+	Y &= X\beta + \mathbf{\epsilon}\\
+	\Leftrightarrow AY &= AX\mathbf{\beta} + \mathbf{\epsilon}'\\
+	\Leftrightarrow Y' &= X' + \mathbf{\epsilon}'
+\end{align*}
+We see that the parameter $\hat{\beta}$ from a fit trough the new model is an estimate for the same $\beta$ as the $\hat{\beta}$ from a fit trough the original model.
+The fitted parameters in this model are given by:
+\begin{align*}
+	\hat{\beta} &= (X'^TX')^{-1} X'^TY'\\
+		    &= (X^T A^T A X)^{-1} (X^T A^T A Y)\\
+		    &= (X^T \Lambda^{-1} X)^{-1} X^T W^{-1} Y
+\end{align*}
+which is the same formula for weighted least squares with the eigenvalues of the variance-covariance matrix as weights. As estimate for the parametes this yields:
+\begin{align*}
+	\hat{\beta_0} &= 3.630090 &t{\beta_1} = 1.180644
+\end{align*}
+with $RSS(\hat{\beta})=2.074712$. The residual least square value is a lot smaller than the one obtained with the correlated errorss. The difference in the obtained values is small, but because of the smaller RSS, the one obtained by the model with uncorrelated errors is a lot better.
 
 \newpage
 \section*{Question 3}

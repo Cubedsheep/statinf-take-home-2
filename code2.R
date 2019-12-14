@@ -55,19 +55,22 @@ m = matrix(nrow=n, ncol=n)
 sigma = 25/9
 rho = 0.8
 for (i in 1:(n-2)) {
-	diag(m[(i+1):(n),(1):(n-i)]) = rep(sigma*rho^(i-1), n-i)
-	diag(m[(1):(n-i),(i+1):(n)]) = rep(sigma*rho^(i-1), n-i)
+	diag(m[(i+1):(n),(1):(n-i)]) = rep(sigma*rho^(i), n-i)
+	diag(m[(1):(n-i),(i+1):(n)]) = rep(sigma*rho^(i), n-i)
 }
 m[1,n] = sigma*rho^(n-1)
 m[n,1] = sigma*rho^(n-1)
 diag(m) = rep(sigma, n)
-P = eigen(m)$vec
-Pi = t(P)
+U = eigen(m)$vec
+Lambda = diag(eigen(m)$val)
+##print(eigen(m)$val)
+A = sqrt(solve(Lambda))*U
+##print(Pi %*% m %*% P)
 ##print(P %*% Pi)
 # this is (almost) the identity matrix
-Xprime = P %*% X
-Yprime = P %*% Y
-errors = P %*% rep(sqrt(sigma), n)
+Xprime = A %*% X
+Yprime = A %*% Y
+errors = A %*% rep(sqrt(sigma), n)
 errors = errors^2
 ##print(P)
 ##print(X2)
