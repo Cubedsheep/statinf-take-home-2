@@ -7,7 +7,7 @@
 \usepackage[T1]{fontenc} 
 \usepackage[backend=bibtex]{biblatex}
 \usepackage{url}
-% \addbibresource{bibliografie.bib}
+\addbibresource{bibliografie.bib}
 \usepackage[usenames,dvipsnames]{color}
 
 
@@ -51,34 +51,36 @@
 \noindent \fbox{Fit a linear model, assuming that the strong Gaussian assumption is relevant.}
 
 The value for the intercept of the fit is $1.0321764$ and for the rico of the fit is $0.1904323$
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\input{fit_1a.tex}
 	\caption{line fit throught the data in Ex1.txt}
 	\label{fig:fit-1a}
 \end{figure}
 
+\newpage
 \subsection*{(b)}
 \noindent \fbox{Test whether $\beta_1=0$ at the level $\alpha=0.01$.}
 
-Using the result from section 7.4.1 in <REFERENCE cursus> we know that the random variable
-\begin{equation}
+Using the result from section 7.4.1 in \cite{course-notes} we know that the random variable
+\begin{equation*}
 	T = \frac{\beta_1}{\sqrt{ \frac{S^2}{ \sum_{i=1}^{n}(x_i-\bar{x}^2)}}}
-\end{equation}
-has a Student distribution with $n-2$ degrees of freedom. The test value is $2.603$. Using a student-t distribution with $60-2=58$ degrees of freedom we find a p-value of $0.0117$. At the confidence level $\alpha=0.01$, the null hypothesis that $\beta_1=0$ holds. The $99\%$ confidence region for the test value is $[-2.663, 2.663]$.
+\end{equation*}
+has a Student-t distribution with $n-2$ degrees of freedom. The test value is $2.603$. Using a student-t distribution with $60-2=58$ degrees of freedom we find a p-value of $0.0117$. At the confidence level $\alpha=0.01$, the null hypothesis that $\beta_1=0$ holds. The $99\%$ confidence region for the test value is $[-2.663, 2.663]$.
 
 \subsection*{(c)}
-\noindent \fbox{Explain what a Q-Q plt is and apply this to the residuals.}
+\noindent \fbox{Explain what a Q-Q plot is and apply this to the residuals.}
 
-A q-q plot is a plot where the quantiles of the assumed distribution are plotted against the quantiles from the sample. So in a sample of $n$ points where we label the observation $x_i, i \in \{1,2, \ldots, n\}$ from lowest to highest, the ith point will be plotted at the $(Q(i/n), x_i)$. 
-Here $Q(x)$ is the quantile function of the assumed distribution. This is a function such that $ P( X < Q(p)) = p$. If the assumed distribution is a good model for the observed sample, the points will well fitted by a linear function.
+A q-q plot is a plot where the quantiles of the assumed distribution are plotted against the quantiles from the sample. So in a sample of $n$ points where the observation $x_i, i \in \{1,2, \ldots, n\}$ are labeled from lowest to highest, the ith point will be plotted at the coordinate $(Q(i/n), x_i)$.
+Here $Q(x)$ is the quantile function of the assumed distribution, apart from a translation and/or rescaling. This is a function such that $ P( X < Q(p)) = p$. If the assumed distribution is a good model for the observed sample, the points will well fitted by a linear function.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\input{qq-plot.tex}
-	\caption{qq plot for the errors on the fit}
+	\caption{qq plot for the errors on the fit against a standard normal distribution}
 	\label{fig:qqplot-1c}
 \end{figure}
+We see that in this case the line fits the observed quatiles well. In part (d) a Shapiro-Wilk test is done to test if the null-hypothesis of normality of the errors is valid. Notice that the line goes almost exactly through (0,0), from which we can conclude that the distribution will have a mean $0$.
 
 \subsection*{(d)}
 \noindent \fbox{Perform a test that does not require normality of the errors.}
@@ -96,29 +98,30 @@ And that we can rewrite $Y$ as $Y=X\beta + \epsilon$ where $\epsilon$ is the ran
 		    &= \beta + (X^TX)^{-1}X^T\epsilon
 \end{align*}
 We see that the distribution of $\hat{\beta}$ is a linear combination of the distributions of the individual errors.
-\begin{equation}
+\begin{equation*}
 	\hat{\beta}_i = \beta_i + \sum_{j=1}^{n}[(X^TX)^{-1}X^T]_{ij} \epsilon_j
-\end{equation}
-Let $A = (X^TX)^{-1}X$. If we assume that the $\epsilon_i$ are i.i.d. with $E(\epsilon_i)=0$ and $Var(\epsilon_i)=\sigma^2$ we see that the distribution of $\hat{\beta}_i$ has expectation value $E(\hat{\beta}_i)=\beta_i$ and $Var(\hat{\beta}_i) = (A_i \cdot A_i^T) \sigma^2$. 
+\end{equation*}
+Let $A = (X^TX)^{-1}X^T$. If we assume that the $\epsilon_i$ are i.i.d. with $E(\epsilon_i)=0$ and $Var(\epsilon_i)=\sigma^2$ we see that the distribution of $\hat{\beta}_i$ has expectation value $E(\hat{\beta}_i)=\beta_i$ and $Var(\hat{\beta}_i) = (A_i \cdot A_i^T) \sigma^2$. 
 
 \subsection*{(e)}
 \noindent \fbox{Determine a $99\%$ confidence region for $\hat{\beta}$}
 
-\begin{figure}
-	\centering
-	\includegraphics[width=.9\linewidth]{region-1e.pdf}
-	\caption{A plot of the $99\%$ confidence region for $\beta$.}
-	\label{fig:1e}
-\end{figure}
-We use the formula from section 7.5.4 in the book to find a confidence region for $\mathbf{\beta}$. THis region is of the form:
+We use the formula from section 7.5.4 in the book to find a confidence region for $\mathbf{\beta}$. This is a region of the form:
 \begin{equation}
 	\left\{ \beta \bigg| \frac{(\hat{\beta}-\beta)^T (X^TX) (\hat{\beta}-\beta)}{pS^2} \leq F_{p,n-p}(1-\alpha) \right\}
+	\label{eq:conf-region}
 \end{equation}
-Because the matrix $X^TX$ is positive definite, this is an ellips with center $\mathbf{\beta}$ and axes along the eigenvectors of $X^TX$. The upper bound for this expression is in this case: $F_{2,58(0.99) = 4.9910}$ Filling in the values for $X, p=2, n=60$ and $S^2$ we get the following result (obtained using the cAS system sympy):
+Because the matrix $X^TX$ is positive definite, this is an ellips with center $\mathbf{\beta}$ and axes along the eigenvectors of $X^TX$. The upper bound in \ref{eq:conf-region} for the $99\%$ confidence region is: $F_{2,58(0.99) = 4.9910}$ Filling in the values for $X, p=2, n=60$ and $S^2=0.0983$ we get the following result (obtained using the CAS system sympy):
 \begin{equation*}
 	\{ \beta | 5.2596 \alpha^{2} + 0.8222 \alpha \beta - 0.4950 \alpha + 1.6711 \beta^{2} - 0.6629 \beta + 0.0711 \leq 4.9910 \}
 \end{equation*}
 The resulting ellips is plotted in figure \ref{fig:1e}.
+\begin{figure}        
+	\centering
+        \includegraphics[width=.9\linewidth]{region-1e.pdf}
+        \caption{A plot of the $99\%$ confidence region for $\beta$.}
+        \label{fig:1e}
+\end{figure}
 
 
 \newpage
@@ -128,14 +131,14 @@ The resulting ellips is plotted in figure \ref{fig:1e}.
 \noindent \fbox{Compute the ordinary least squares $\hat{\beta}_{OLS}$.}
 
 The value for $\hat{\beta}_{OLS}$ obtained using ordinary least squares with the correlated errors is:
-\begin{equation}
-	\hat{\beta}_{OLS} = (3.923161, 1.214355)^T
-\end{equation}
+
+\fbox{$\hat{\beta}_{OLS} = (3.923161, 1.214355)^T$}
+
 
 \subsection*{(b)}
 \noindent \fbox{\parbox{0.8\linewidth}{Suppose we further know that the errors are correlated and satisfy the following equation:
 	\begin{equation}
-		\epsilon_i = \rho \epsilon_{i-1} + \eta_i, \quad \text{for} i = 1,\ldots, n
+		\epsilon_i = \rho \epsilon_{i-1} + \eta_i, \quad \text{for} \quad i = 1,\ldots, n
 		\label{eq:errors}
 	\end{equation}
 Wwhere $\eta_n$ are i.i.d. standar Gaussian and $\rho=0.8$. Use \ref{eq:errors} to compute the variance of $\mathbf{\epsilon}$.}}
@@ -158,9 +161,9 @@ We conclude that the variance of $\epsilon$ is $ \frac{25}{9}$.
 \noindent \fbox{\parbox{\linewidth}{Transform the model in such a way that the errors are no longer correlated. Compute the ordinary least squares for this new model and compare it to the one obtained in (a)}}
 
 To transform the errors to a basis where they are no longer correlated we will use the variance-covariance matrix $V$ of the errors. 
-The off-diagonal elements, so the covariances, are (suppose $i < j$:
+The off-diagonal elements, so the covariances, are (suppose $i < j$):
 \begin{align*}
-	Cov(\epsilon_i, \epsilon_j) &= E[(\epsilon_i-E(\epsilon_i))(\epsilon_j-E(epsilon_j))]\\
+	Cov(\epsilon_i, \epsilon_j) &= E[(\epsilon_i-E(\epsilon_i))(\epsilon_j-E(\epsilon_j))]\\
 				    &= E[\epsilon_i \epsilon_j]\\
 				    &= E[\epsilon_i (\rho\epsilon_{j-1} \eta_j)]\\
 				    &\vdots\\
@@ -176,7 +179,7 @@ the matrix $V$ can be diagonalized with an orthogonal (or unitary) transformatio
 	\Leftrightarrow \Lambda &= U E( \mathbf{\epsilon} \mathbf{\epsilon}^T) U^T\\
 	\Leftrightarrow \Lambda &= E( (U\mathbf{\epsilon})(U\mathbf{\epsilon})^T)\\
 \end{align*}
-Where we used that $E(\mathbf{\epsilon} = \mathbf{0})$. The vector $U \mathbf{\epsilon}$ has variance-covariance matrix $\Lambda$ therefore it is a vector of uncorrelated variables. 
+Where we used that $E(\mathbf{\epsilon}) = \mathbf{0}$. The vector $U \mathbf{\epsilon}$ has variance-covariance matrix $\Lambda$ therefore it is a vector of uncorrelated variables. 
 To be able to use the ordinary least squares method however, we need a vector of $i.i.d.$ variables which this vector is not, the variances are the eigenvalues of $V$. To get a transformation we can use to do the fit we need to correct this. Let $\mathbf{\epsilon}' = \sqrt{W^{-1}} U \mathbf{\epsilon}$. 
 The variance-covariance matrix of this vector is:
 \begin{align*}
@@ -208,10 +211,14 @@ with $RSS(\hat{\beta})=2.074712$. The residual least square value is a lot small
 \section*{Question 3}
 
 \subsection*{(a)}
-\noindent \fbox{Comput the weighted least square estimator $\hat{\beta}_{WLS}$}
+\noindent \fbox{Compute the weighted least square estimator $\hat{\beta}_{WLS}$}
 
-The values for the fitted coefficients with ordinary least squares are: $[0.4994, 1.1985, -2.4959, 1.2082]$. In figure \ref{fig:fit-3} the fit is plotted along with the data. 
-\begin{figure}
+The values for the fitted coefficients with ordinary least squares are: 
+
+\fbox{$[0.4994, 1.1985, -2.4959, 1.2082]$.}
+
+In figure \ref{fig:fit-3} the fit is plotted along with the data. 
+\begin{figure}[H]
 	\centering
 	\input{fit_3.tex}
 	\caption{fits of a cubic function using ordinary least square (blue) and weighted least squares (red)}
@@ -225,13 +232,20 @@ The values for the fitted coefficients with ordinary least squares are: $[0.4994
 \end{equation*}
 Compute the weighted least square estimator $\hat{\beta}_{WLS}$.}}
 
-The coeffitients fitted with the weighted least square algorithm are $[0.5003, 0.9669, -1.9655, 0.9910]$.
+The formula to calculate an estimate for $\beta$ with the weighted least squares method is given by:
+\begin{equation}
+	\hat{\beta}_{WLS} = (X^TW^{-1}X)^{-1} X^TW^{-1}Y
+	\label{eq:WLS}
+\end{equation}
+Where $W$ is the variance-covariance matrox of the errors. In this cas this is a diagonal matrix with the variance of $\epsilon_i$ at position $W_{ii}$. The coeffitients fitted with the weighted least square algorithm are:
+
+\fbox{$[0.5003, 0.9669, -1.9655, 0.9910]$.}
 
 \subsection*{(c)}
 \noindent \fbox{Compare $\hat{\beta}_{WLS}$ to $\hat{\beta}_{OLS}$ and with the true parameter i.e. $\beta=(0.5,1,-2,1)^T$ }
 
-The coefficients that are calculated using the least squares method are closer to the real values than the ones calculated using the ordinary least squares. To really say something about the difference and how well they match the given real values of the function we need more information about the distribution of the parameters.
-In figure \ref{fig:fit-3} the two fits are plotted together with the data to fit through.
+The coefficients that are calculated using the weighted least squares method are closer to the real values than the ones calculated using the ordinary least squares. To really say something about the difference and how well they match the given real values of the function we need more information about the distribution of the parameters.
+In figure \ref{fig:fit-3} the two fits are plotted together with the data used for the fit.
 
 \subsection*{(d)}
 \noindent \fbox{Determine the distribution of $\hat{\beta}_{WLS}$}
@@ -240,12 +254,7 @@ To derive the distribution of $\hat{\beta}_{WLS}$ we start from the distribution
 \begin{equation*}
 	\mathbf{\epsilon} \sim N_n(0, W)
 \end{equation*}
-Where $W$ is a diagonal matrix with at position $W_{ii}$ the variance of $\epsilon_i$. This is the same matrix $W$ used in the formula to calculate the estimate for $\beta$ with the weighted least squares method. This formula is:
-\begin{equation}
-	\hat{\beta}_{WLS} = (X^TW^{-1}X)^{-1} X^T W^{-1}Y
-	\label{eq:beta_WLS}
-\end{equation}
-here $Y$ is the vector with samples used to calculate the least squares estimator. $X$ is the matrix as defined on page 193 in the course notes, this matrix is deterministic. $Y$ can be rewritten as follows:
+Where $W$ is a diagonal matrix with at position $W_{ii}$ the variance of $\epsilon_i$. This is the same matrix $W$ used in equation \ref{eq:WLS}. here $Y$ is the vector with samples used to calculate the least squares estimator. $X$ is the matrix as defined on page 193 in the course notes, this matrix is deterministic. $Y$ can be rewritten as follows:
 \begin{equation*}
 	Y = X \beta + \mathbf{\epsilon}
 \end{equation*}
@@ -256,10 +265,13 @@ substituting this into equation \ref{eq:beta_WLS} yields:
 			  &= \beta + X^{-1} W X^{-T} X^T W^{-1} \mathbf{\epsilon}\\
 			  &= \beta + X^{-1} \mathbf{\epsilon} 
 \end{align*}
+Note that the matrix $X^{-1}$ used here is not well-defined as it is not unique. We take any matrix $A=X^{-1}$ such that $X^{-1}X=Id_{p}$. We can see that such a mtrix exist by adding extra columns to $X$ with the values $x_i^p, x_i^{p+1}, \ldots, x_i^{n-1}$ with $p$ the amount of parameters in the model and $n$ the mamount of sample points. The determinant of this extended matrix $B$ is the determinant of Vandermonde and is non-zero if all $x_i$ are different. Thus B has an inverse and we can take the first $p$ rows of $B$ as the matrix $X^{-1}$.
+
 We see this is a linear transformation of a multivariate normal distribution with mean $\mathbf{0}$ and as variance-covariance matrix $\Sigma_{\epsilon}=W$. Again using the results from section 6.2, page 172 in the course notes we find that the distribution of $\hat{\beta}_{WLS}$ is a multivariate normal distribution with mean $\beta$ and variance-covariance matrix $X^{-1} W X^{-T} = (X^T W^{-1} X)^{-1}$. We conclude that:
-\begin{equation*}
-	\hat{\beta}_{WLS} \sim N_p(\beta, (X^TW^{-1}X)^{-1})
-\end{equation*}
+
+\fbox{$\hat{\beta}_{WLS} \sim N_p(\beta, (X^TW^{-1}X)^{-1})$}
+
+Notice that there is no $X^{-1}$ in the final expression and we only used the fact that $X^{-1}X=Id_p$ so there is no ambiguity in the final expression for the distribution of $\hat{\beta}_{WLS}$.
 
 
 \newpage
@@ -272,18 +284,21 @@ We see this is a linear transformation of a multivariate normal distribution wit
 \subsection*{(a)}
 \noindent \fbox{Produce $n=200$ simulations of $\mathbf{X}$}
 
-To generate a sample from a multi-normal distribution we work analogues to the derivation in section 6.2 in the course notes, but backwards. We are given the variance-covariance matrix $\Sigma_X$ of a multivariate normal model. This matrix must be positive definite, so the square root of this matrix exists. 
-Let $A$ be a matrix such that $AA^T=\Sigma_X$. This matrix can be found by diagonalizing $\Sigma_X$: $\Sigma_X=U\Lambda U^T$ and than taking $A = U \sqrt(\Lambda)$. We can do this because all eigenvalues of $\Sigma_X$ are positive.
-The result from section 6.2 now tells us that $X = AY + \mu$ where $Y$ is a vector of standard normal distributions.
-This observation can be used to draw a sample from $X$ by drawing $n$ independent samples from a standard normal distribution, filling them in in a vector $y$ and the calculating the sample from $X$ as $x=Ay+\mu$. This was implemented in $R$
+To generate a sample from a multi-normal distribution we Propositio 6.2 (b) from \cite{course-notes}. We are given the variance-covariance matrix $\Sigma_X$ of a multivariate normal model. This matrix must be positive definite, so the square root of this matrix exists. 
 
-\begin{figure}
+Let $A$ be a matrix such that $AA^T=\Sigma_X$. This matrix can be found by diagonalizing $\Sigma_X$: $\Sigma_X=U\Lambda U^T$ and then taking $A = U \sqrt{\Lambda}$. We can do this because all eigenvalues of $\Sigma_X$ are positive.
+
+Proposition 6.2 b) tells us that $X = AY + \mu$ where $Y$ is a vector of standard normal distributions Because $A\Sigma_YA^T=\Sigma_X$ where we used that $\Sigma_Y$ is the $n\times n$ identity matrix.
+This observation can be used to draw a sample from $X$ by drawing $n$ independent samples from a standard normal distribution, filling them in in a vector $y$ and the calculating the sample from $X$ as $x=Ay+\mu$. This was implemented in $R$ and projections of this sample are plotted in figure \ref{fig:sample} together with a 3D-plot.
+
+\begin{figure}[H]
 	\centering
 	\input{sample-4a-xy.tex}
 	\caption{Projection on the $xy$-plane of the sample from the multivariate normal distribution}
 	\label{fig:sample}
 \end{figure}
 
+\newpage
 \subsection*{(b)}
 \noindent \fbox{Compute $P(X_1>1|X_2=1, X_3=-2)$ and $P(X_1>1|X_2+X_3=-1)$.}
 
@@ -291,9 +306,9 @@ To compute these conditional chances we use proposition 6.2 from the course note
 \begin{align*}
 	\Sigma_{11} &= \left(1.25\right) &\Sigma_{12} = \left( 1.50, 0.5\right)\\
 	\Sigma_{21} &= \begin{pmatrix} 1.50\\ 0.50 \end{pmatrix} &\Sigma_{22} = \begin{pmatrix} 5.25 & 3.5\\ 3.5 & 3.0 \end{pmatrix}\\
-	\mathbf{X}_1 &= \begin{pmatrix} \mathbf{X}_1 \end{pmatrix} &\mathbf{x}_2 = \begin{pmatrix} 1\\-2 \end{pmatrix}
+	\mathbf{X}_1 &= \begin{pmatrix} X_1 \end{pmatrix} &\mathbf{X}_2=\begin{pmatrix}X_2\\X_3\end{pmatrix} &\mathbf{x}_2 = \begin{pmatrix} 1\\-2 \end{pmatrix}
 \end{align*}
-When we fill in these values in the the formula for the distribution of the conditional distribution $f_{\mathbf{X}_1|\mathbf{X}_2}(\mathbf{x}_1, \mathbf{X}_2 = \mathbf{x}_2)$ we find the following distribution:
+When we fill these values in the the formula for the conditional distribution $f_{\mathbf{X}_1|\mathbf{X}_2}(\mathbf{x}_1, \mathbf{X}_2 = \mathbf{x}_2)$ we find the following:
 \begin{equation}
 	f_{\mathbf{X}_1|\mathbf{X}_2}(\mathbf{x}_1, \mathbf{X}_2 = \mathbf{x}_2) = N_1(1, 0.446)
 \end{equation}
@@ -307,7 +322,7 @@ Using part (b) of proposition 6.2 we find that the distribution of $\mathbf{Y}$ 
 \begin{equation*}
 	\mathbf{Y} \sim N(A\mathbf{\mu}, \mathbf{A}\Sigma\mathbf{A}^T) = N(...)
 \end{equation*}
-Observe that $P(X_1 > 1 | X_2+X_3=-1) = P(Y_1 > 1 | Y_2=-1)$. We can again use part (c) of proposition 6.2 to calculate this probability. This yields the following conditional probability distribution:
+Observe that $P(X_1 > 1 | X_2+X_3=-1) = P(Y_1 > 1 | Y_2=-1)$. We can again use part (c) of proposition 6.2 to calculate this probability. This yields the following conditional distribution:
 \begin{equation*}
 	f_{\mathbf{Y}_1|\mathbf{Y}_2}(\mathbf{y}_1|\mathbf{y}_2=-1) = N(1, 0.9877)
 \end{equation*}
@@ -328,7 +343,7 @@ We can now use proposition 6.1 to find the contours of of this density function.
 \begin{align*}
 	Q_{\chi^2_2}(0.95) &= (\mathbf{Y}-\mathbf{\mu})^T \Sigma^{-1} (\mathbf{Y}-\mathbf{\mu})
 \end{align*}
-This region is plotted in figure
+This region is plotted in figure \ref{fig:4c}.
 \begin{figure}
 	\centering
 	\includegraphics[width=.9\linewidth]{region-3c.pdf}
@@ -342,7 +357,7 @@ Seppe for stupid discussions about how well the questions are asked
 Thibeau for organising a group crying session
 Robbe for genuinly good input about trying to solve stupid questions
 
-
+\printbibliography
 %\printinunitsof{in}\prntlen{\textwidth}
 
 
