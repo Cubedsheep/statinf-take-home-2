@@ -46,8 +46,10 @@
 
 \maketitle
 
-\section*{Question 1}
+\section*{Excercise 1}
 \subsection*{(a)}
+\noindent \fbox{Fit a linear model, assuming that the strong Gaussian assumption is relevant.}
+
 The value for the intercept of the fit is $1.0321764$ and for the rico of the fit is $0.1904323$
 \begin{figure}[h]
 	\centering
@@ -57,6 +59,8 @@ The value for the intercept of the fit is $1.0321764$ and for the rico of the fi
 \end{figure}
 
 \subsection*{(b)}
+\noindent \fbox{Test whether $\beta_1=0$ at the level $\alpha=0.01$.}
+
 Using the result from section 7.4.1 in <REFERENCE cursus> we know that the random variable
 \begin{equation}
 	T = \frac{\beta_1}{\sqrt{ \frac{S^2}{ \sum_{i=1}^{n}(x_i-\bar{x}^2)}}}
@@ -64,6 +68,8 @@ Using the result from section 7.4.1 in <REFERENCE cursus> we know that the rando
 has a Student distribution with $n-2$ degrees of freedom. The test value is $2.603$. Using a student-t distribution with $60-2=58$ degrees of freedom we find a p-value of $0.0117$. At the confidence level $\alpha=0.01$, the null hypothesis that $\beta_1=0$ holds. The $99\%$ confidence region for the test value is $[-2.663, 2.663]$.
 
 \subsection*{(c)}
+\noindent \fbox{Explain what a Q-Q plt is and apply this to the residuals.}
+
 A q-q plot is a plot where the quantiles of the assumed distribution are plotted against the quantiles from the sample. So in a sample of $n$ points where we label the observation $x_i, i \in \{1,2, \ldots, n\}$ from lowest to highest, the ith point will be plotted at the $(Q(i/n), x_i)$. 
 Here $Q(x)$ is the quantile function of the assumed distribution. This is a function such that $ P( X < Q(p)) = p$. If the assumed distribution is a good model for the observed sample, the points will well fitted by a linear function.
 
@@ -74,7 +80,30 @@ Here $Q(x)$ is the quantile function of the assumed distribution. This is a func
 	\label{fig:qqplot-1c}
 \end{figure}
 
+\subsection*{(d)}
+\noindent \fbox{Perform a test that does not require normality of the errors.}
+
+To do a test that does not require normality of the errors we first derive an assymptotic result for the distribution of $\hat{\beta}$.
+We use that $\hat{\beta}$ is given by:
+\begin{equation}
+	\hat{\beta} = (X^TX)^{-1} X^TY
+	\label{eq:beta_hat}
+\end{equation}
+And that we can rewrite $Y$ as $Y=X\beta + \epsilon$ where $\epsilon$ is the random vector of errors. Filling this in in equation \ref{eq:beta_hat} yields
+\begin{align*}
+	\hat{\beta} &= (X^TX)^{-1} X^T (X\beta + \epsilon)\\
+		    &= (X^TX)^{-1} (X^TX) \beta + (X^TX)^{-1}X^T\epsilon\\
+		    &= \beta + (X^TX)^{-1}X^T\epsilon
+\end{align*}
+We see that the distribution of $\hat{\beta}$ is a linear combination of the distributions of the individual errors.
+\begin{equation}
+	\hat{\beta}_i = \beta_i + \sum_{j=1}^{n}[(X^TX)^{-1}X^T]_{ij} \epsilon_j
+\end{equation}
+Let $A = (X^TX)^{-1}X$. If we assume that the $\epsilon_i$ are i.i.d. with $E(\epsilon_i)=0$ and $Var(\epsilon_i)=\sigma^2$ we see that the distribution of $\hat{\beta}_i$ has expectation value $E(\hat{\beta}_i)=\beta_i$ and $Var(\hat{\beta}_i) = (A_i \cdot A_i^T) \sigma^2$. 
+
 \subsection*{(e)}
+\noindent \fbox{Determine a $99\%$ confidence region for $\hat{\beta}$}
+
 \begin{figure}
 	\centering
 	\includegraphics[width=.9\linewidth]{region-1e.pdf}
@@ -96,12 +125,21 @@ The resulting ellips is plotted in figure \ref{fig:1e}.
 \section*{Question 2}
 
 \subsection*{(a)}
+\noindent \fbox{Compute the ordinary least squares $\hat{\beta}_{OLS}$.}
+
 The value for $\hat{\beta}_{OLS}$ obtained using ordinary least squares with the correlated errors is:
 \begin{equation}
 	\hat{\beta}_{OLS} = (3.923161, 1.214355)^T
 \end{equation}
 
 \subsection*{(b)}
+\noindent \fbox{\parbox{0.8\linewidth}{Suppose we further know that the errors are correlated and satisfy the following equation:
+	\begin{equation}
+		\epsilon_i = \rho \epsilon_{i-1} + \eta_i, \quad \text{for} i = 1,\ldots, n
+		\label{eq:errors}
+	\end{equation}
+Wwhere $\eta_n$ are i.i.d. standar Gaussian and $\rho=0.8$. Use \ref{eq:errors} to compute the variance of $\mathbf{\epsilon}$.}}
+
 we know that the variance is the same for all $\epsilon_i$ and that they obey the recursive relation:
 \begin{equation*}
 	\epsilon_i = \rho \epsilon_{i-1} + \eta_i
@@ -117,6 +155,8 @@ with $\eta_i$ standard normaly distributed. Using $Var(\epsilon_i) =Var(\epsilon
 We conclude that the variance of $\epsilon$ is $ \frac{25}{9}$.
 
 \subsection*{(c)}
+\noindent \fbox{\parbox{\linewidth}{Transform the model in such a way that the errors are no longer correlated. cCompute the ordinary least squares for this new model and compare it to the one obtained in (a)}}
+
 To transform the errors to a basis where they are no longer correlated we will use the variance-covariance matrix $V$ of the errors. 
 The off-diagonal elements, so the covariances, are (suppose $i < j$:
 \begin{align*}
@@ -156,6 +196,8 @@ which means the RSS for the correlated and the uncorrelated errors will have the
 \section*{Question 3}
 
 \subsection*{(a)}
+\noindent \fbox{Comput the weighted least square estimator $\hat{\beta}_{WLS}$}
+
 The values for the fitted coefficients with ordinary least squares are: $[0.4994, 1.1985, -2.4959, 1.2082]$. In figure \ref{fig:fit-3} the fit is plotted along with the data. 
 \begin{figure}
 	\centering
@@ -165,13 +207,23 @@ The values for the fitted coefficients with ordinary least squares are: $[0.4994
 \end{figure}
 
 \subsection*{(b)}
+\noindent \fbox{\parbox{\linewidth}{Suppose we further know that the errors are Gaussian but heteroscedastic as follows:
+\begin{equation*}
+	\sigma(x) = \bigg\{ \begin{matrix}x^2 & \text{if} x \in [0,4/3]\\ 4(x-2)^2 & \text{if} x \in [4/3, 2] \end{matrix}
+\end{equation*}
+Compute the weighted least square estimator $\hat{\beta}_{WLS}$.}}
+
 The coeffitients fitted with the weighted least square algorithm are $[0.5003, 0.9669, -1.9655, 0.9910]$.
 
 \subsection*{(c)}
+\noindent \fbox{Compare $\hat{\beta}_{WLS}$ to $\hat{\beta}_{OLS}$ and with the true parameter i.e. $\beta=(0.5,1,-2,1)^T$ }
+
 The coefficients that are calculated using the least squares method are closer to the real values than the ones calculated using the ordinary least squares. To really say something about the difference and how well they match the given real values of the function we need more information about the distribution of the parameters.
 In figure \ref{fig:fit-3} the two fits are plotted together with the data to fit through.
 
 \subsection*{(d)}
+\noindent \fbox{Determine the distribution of $\hat{\beta}_{WLS}$}
+
 To derive the distribution of $\hat{\beta}_{WLS}$ we start from the distribution for the errors, which is known:
 \begin{equation*}
 	\mathbf{\epsilon} \sim N_n(0, W)
@@ -200,7 +252,14 @@ We see this is a linear transformation of a multivariate normal distribution wit
 
 \newpage
 \section*{Question 4}
+\noindent \fbox{\parbox{\linewidth}{Let $\mathbf{X}$ be a 3-dimensional Gaussian vector with parameters
+\begin{align*}
+	\mu = \begin{pmatrix}1\\1\\-2\end{pmatrix} \quad &\text{and} \quad \Sigma = \begin{pmatrix}1.25&1.50&0.5\\1.5&5.25&3.5\\0.5&3.5&3.0\end{pmatrix}
+\end{align*}}}
+
 \subsection*{(a)}
+\noindent \fbox{Produce $n=200$ simulations of $\mathbf{X}$}
+
 To generate a sample from a multi-normal distribution we work analogues to the derivation in section 6.2 in the course notes, but backwards. We are given the variance-covariance matrix $\Sigma_X$ of a multivariate normal model. This matrix must be positive definite, so the square root of this matrix exists. 
 Let $A$ be a matrix such that $AA^T=\Sigma_X$. This matrix can be found by diagonalizing $\Sigma_X$: $\Sigma_X=U\Lambda U^T$ and than taking $A = U \sqrt(\Lambda)$. We can do this because all eigenvalues of $\Sigma_X$ are positive.
 The result from section 6.2 now tells us that $X = AY + \mu$ where $Y$ is a vector of standard normal distributions.
@@ -214,6 +273,8 @@ This observation can be used to draw a sample from $X$ by drawing $n$ independen
 \end{figure}
 
 \subsection*{(b)}
+\noindent \fbox{Compute $P(X_1>1|X_2=1, X_3=-2)$ and $P(X_1>1|X_2+X_3=-1)$.}
+
 To compute these conditional chances we use proposition 6.2 from the course notes with the following vectors and matrices:
 \begin{align*}
 	\Sigma_{11} &= \left(1.25\right) &\Sigma_{12} = \left( 1.50, 0.5\right)\\
@@ -241,6 +302,8 @@ Observe that $P(X_1 > 1 | X_2+X_3=-1) = P(Y_1 > 1 | Y_2=-1)$. We can again use p
 Therefore $P(X_1 > 1 | X_2+X_3=-1)=0.5$.
 
 \subsection*{(c)}
+\noindent \fbox{\parbox{\linewidth}{Let $\mathbf{Y}=(X_1, X_2)^T$. Represent graphically the density contours that comprise $95\%$ of the probability mass of $\mathbf{Y}$}}
+
 To determine the density function of $\mathbf{Y}=(X_1, X_2)^T$ We make again use of proposition 6.2 (c) with the following matrix:
 \begin{equation*}
 	\mathbf{A} = \begin{pmatrix} 1 & 0 & 0\\ 0 & 1 & 0 \end{pmatrix}
