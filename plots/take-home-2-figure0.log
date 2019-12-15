@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.11.5)  14 DEC 2019 22:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.11.5)  15 DEC 2019 12:11
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1421,61 +1421,68 @@ Overfull \hbox (6.79999pt too wide) in paragraph at lines 161--162
  []
 
 
-LaTeX Warning: Reference `fig:region-2' on page 5 undefined on input line 208.
+LaTeX Warning: Reference `fig:region-2' on page 5 undefined on input line 209.
+
+
+LaTeX Warning: Reference `fig:fit-2' on page 5 undefined on input line 209.
 
 The command '\includegraphics [width=.9\linewidth ]{region-2.pdf}' has been opt
 imized away. Use '/tikz/external/optimize=false' to disable this.
+(./fit-2.tex
+A tikzpicture has been optimized away. Use '/tikz/external/optimize=false' to d
+isable this.
+)
 
-LaTeX Warning: Reference `fig:fit-3' on page 6 undefined on input line 226.
+LaTeX Warning: Reference `fig:fit-3' on page 7 undefined on input line 235.
 
 (./fit_3.tex
 A tikzpicture has been optimized away. Use '/tikz/external/optimize=false' to d
 isable this.
 )
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 235--240
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 244--249
 [] 
  []
 
 
-LaTeX Warning: Reference `fig:fit-3' on page 6 undefined on input line 254.
+LaTeX Warning: Reference `fig:fit-3' on page 7 undefined on input line 263.
 
 
-LaTeX Warning: Reference `eq:WLS' on page 6 undefined on input line 263.
+LaTeX Warning: Reference `eq:WLS' on page 7 undefined on input line 272.
 
 
-LaTeX Warning: Reference `eq:beta_WLS' on page 7 undefined on input line 267.
+LaTeX Warning: Reference `eq:beta_WLS' on page 8 undefined on input line 276.
 
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 285--289
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 294--298
 [] 
  []
 
 
-LaTeX Warning: Citation 'course-notes' on page 8 undefined on input line 293.
+LaTeX Warning: Citation 'course-notes' on page 9 undefined on input line 302.
 
 
-LaTeX Warning: Reference `fig:sample' on page 8 undefined on input line 298.
+LaTeX Warning: Reference `fig:sample' on page 9 undefined on input line 307.
 
 (./sample-4a-xy.tex
 A tikzpicture has been optimized away. Use '/tikz/external/optimize=false' to d
 isable this.
 )
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 338--339
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 347--348
 [] 
  []
 
 
-LaTeX Warning: Reference `fig:4c' on page 9 undefined on input line 352.
+LaTeX Warning: Reference `fig:4c' on page 10 undefined on input line 361.
 
 The command '\includegraphics [width=.9\linewidth ]{region-3c.pdf}' has been op
 timized away. Use '/tikz/external/optimize=false' to disable this.
 
-LaTeX Warning: Empty bibliography on input line 366.
+LaTeX Warning: Empty bibliography on input line 375.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 370.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 370.
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 370.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 370.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 380.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 380.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 380.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 380.
 
 LaTeX Warning: There were undefined references.
 
@@ -1489,10 +1496,10 @@ Package logreq Info: Writing requests to 'plots/take-home-2-figure0.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 39155 strings out of 493770
- 764179 string characters out of 6154420
- 1282712 words of memory out of 5000000
- 42368 multiletter control sequences out of 15000+600000
+ 39160 strings out of 493770
+ 764240 string characters out of 6154420
+ 1282714 words of memory out of 5000000
+ 42370 multiletter control sequences out of 15000+600000
  551309 words of font info for 81 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
  63i,16n,94p,857b,1109s stack positions out of 5000i,500n,10000p,200000b,80000s

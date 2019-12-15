@@ -173,14 +173,14 @@ The off-diagonal elements, so the covariances, are (suppose $i < j$):
 				    &= \rho^{i-j} \frac{25}{9}
 \end{align*}
 So the matrix V has $ \frac{25}{9}$ on the diagonal, $ \frac{25}{9}\rho $ on the two sub-diagonals next to the diagonal, $ \frac{25}{9} \rho^k$ on the $k$th sub-diagonal.
-the matrix $V$ can be diagonalized with an orthogonal (or unitary) transformation $U$: $\Lambda = MVM^T$. When we use the definition of the variance-covariance matrix (where $\mathbf{\epsilon}$ denotes the column vector with the errors) we find:
+the matrix $V$ can be diagonalized with an orthogonal (or unitary) transformation $U$: $\Lambda = UVU^T$. When we use the definition of the variance-covariance matrix (where $\mathbf{\epsilon}$ denotes the column vector with the errors) we find:
 \begin{align*}
 	V &= E( (\mathbf{\epsilon} - E(\mathbf{\epsilon})) (\mathbf{\epsilon} - E(\mathbf{\epsilon}))^T)\\
 	\Leftrightarrow \Lambda &= U E( \mathbf{\epsilon} \mathbf{\epsilon}^T) U^T\\
 	\Leftrightarrow \Lambda &= E( (U\mathbf{\epsilon})(U\mathbf{\epsilon})^T)\\
 \end{align*}
-Where we used that $E(\mathbf{\epsilon}) = \mathbf{0}$. The vector $U \mathbf{\epsilon}$ has variance-covariance matrix $\Lambda$ therefore it is a vector of uncorrelated variables. 
-To be able to use the ordinary least squares method however, we need a vector of $i.i.d.$ variables which this vector is not, the variances are the eigenvalues of $V$. To get a transformation we can use to do the fit we need to correct this. Let $\mathbf{\epsilon}' = \sqrt{W^{-1}} U \mathbf{\epsilon}$. 
+Where we used that $E(\mathbf{\epsilon}) = \mathbf{0}$. The vector $U \mathbf{\epsilon}$ has variance-covariance matrix $\Lambda$, therefore it is a vector of uncorrelated variables. 
+To be able to use the ordinary least squares method however, we need a vector of $i.i.d.$ variables which this vector is not, the variances are the eigenvalues of $V$. To get a transformation we can use to do the fit we need to correct this. Let $\mathbf{\epsilon}' = \sqrt{\Lambda^{-1}} U \mathbf{\epsilon}$. 
 The variance-covariance matrix of this vector is:
 \begin{align*}
 	E(\mathbf{\epsilon}'\mathbf{\epsilon}'^T) &= \sqrt{\Lambda^{-1}} U E(\mathbf{\epsilon}\mathbf{\epsilon}^T) U^T \sqrt{\Lambda^{-1}}\\
@@ -192,26 +192,35 @@ To transform the errors, we need to transform the matrix $X$ and the vector $Y$.
 \begin{align*}
 	Y &= X\beta + \mathbf{\epsilon}\\
 	\Leftrightarrow AY &= AX\mathbf{\beta} + \mathbf{\epsilon}'\\
-	\Leftrightarrow Y' &= X' + \mathbf{\epsilon}'
+	\Leftrightarrow Y' &= X'\beta + \mathbf{\epsilon}'
 \end{align*}
 We see that the parameter $\hat{\beta}$ from a fit trough the new model is an estimate for the same $\beta$ as the $\hat{\beta}$ from a fit trough the original model.
 The fitted parameters in this model are given by:
 \begin{align*}
 	\hat{\beta} &= (X'^TX')^{-1} X'^TY'\\
 		    &= (X^T A^T A X)^{-1} (X^T A^T A Y)\\
-		    &= (X^T \Lambda^{-1} X)^{-1} X^T W^{-1} Y
+		    &= (X^T W^{-1} X)^{-1} X^T W^{-1} Y
 \end{align*}
+where we used that $A^TA = U^T\Lambda^{-1}U= (U \Lambda U^T)^{-1} = W^{-1}$
 which is the same formula for weighted least squares with the eigenvalues of the variance-covariance matrix as weights. As estimate for the parametes this yields:
 \begin{align*}
 	\hat{\beta_0} &= 3.630090 &t{\beta_1} = 1.180644
 \end{align*}
-with $RSS(\hat{\beta})=2.074712$. The residual least square value is a lot smaller than the one obtained with the correlated errorss. The difference in the obtained values is small, but because of the smaller RSS, the one obtained by the model with uncorrelated errors is a lot better. In figure \ref{fig:region-2} the two $99\%$ confidence regions are plotted. The smaller ellips is the confidence region for the estimate obtained with the model where the errors are uncorrelated. Its clear that this model gives a more accurate estimate of the true value of the parameters.
+with $RSS(\hat{\beta})=2.074712$. The residual least square value is a lot smaller than the one obtained with the correlated errorss. The difference in the obtained values is small, but because of the smaller RSS, the one obtained by the model with uncorrelated errors is a lot better. In figure \ref{fig:region-2} the two $99\%$ confidence regions are plotted. The smaller ellips is the confidence region for the estimate obtained with the model where the errors are uncorrelated. Its clear that this model gives a more accurate estimate of the true value of the parameters. In figure \ref{fig:fit-2} the data is plotted together with the two fits.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=.9\linewidth]{region-2.pdf}
-	\caption{The $99\%$ confidene regions for $\hat{\beta}_{OLS}$ obtained with the original data (greater elips) and with the model where the errors are uncorrelated (smaller elips).}
+	\caption{The $99\%$ confidene regions and estimate for $\hat{\beta}_{OLS}$ obtained with the original data (stretched ellips and red point) and with the model where the errors are uncorrelated (less stretched elips and blue point).}
 	\label{fig:region-2}
 \end{figure}
+
+\begin{figure}[H]
+        \centering
+        \input{fit-2.tex}
+	\caption{The data together with the two fits, red line is fit trough data with correlated errors, blue the fit trough data with uncorrelated errors.}
+        \label{fig:fit-3}
+\end{figure}
+
 
 \newpage
 \section*{Question 3}
@@ -364,6 +373,7 @@ Thibeau for organising a group crying session
 Robbe for genuinly good input about trying to solve stupid questions
 
 \printbibliography
+
 %\printinunitsof{in}\prntlen{\textwidth}
 
 

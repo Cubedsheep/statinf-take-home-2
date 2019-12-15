@@ -32,6 +32,11 @@ X1 = data$V1
 Y = data$V2
 X = cbind(rep(1, length(X1)), X1)
 
+# plot the data
+tikz(file="fit-2.tex", width=0.9*LINEWIDTH, height=0.7*LINEWIDTH);
+par(mfrow=c(1,1))
+plot(X1, Y, xlab="V1", ylab="V2", pch=20)
+
 #####
 # a #
 #####
@@ -42,6 +47,9 @@ print(beta)
 # calculate the RSS
 RSS = t(Y-X%*%beta) %*% (Y-X%*%beta)
 print(RSS)
+
+# plot the fit
+lines(X1, X%*%beta, col="red")
 
 # print parameters to plot the confidence region
 print("parameters for the confidence region:")
@@ -71,29 +79,37 @@ diag(m) = rep(sigma, n)
 U = eigen(m)$vec
 Lambda = diag(eigen(m)$val)
 ##print(eigen(m)$val)
-A = sqrt(solve(Lambda))*U
+##print(U%*%Lambda%*%t(U)-m)
+A = sqrt(solve(Lambda))%*%t(U)
 ##print(Pi %*% m %*% P)
 ##print(P %*% Pi)
 # this is (almost) the identity matrix
 Xprime = A %*% X
 Yprime = A %*% Y
-errors = A %*% rep(sqrt(sigma), n)
-errors = errors^2
+##errors = A %*% rep(sqrt(sigma), n)
+##errors = errors^2
 ##print(P)
 ##print(X2)
 ##print(Y2)
 ##print(errors)
-
+i
 # do the linear regression
 beta = solve(t(Xprime)%*%Xprime) %*% t(Xprime)%*%Yprime
+beta2 = solve(t(X)%*%solve(m)%*%X) %*% t(X)%*%solve(m)%*%Y
 #print(df)
 print(beta)
+print(beta2)
 # calculate the RSS
-RSS = t(Yprime-Xprime%*%beta) %*% (Yprime-Xprime%*%beta)
+RSS = t(Yprime-Xprime%*%beta2) %*% (Yprime-Xprime%*%beta2)
 print(RSS)
 
 # print parameters to plot the confidence region
 print("parameters for the confidence region:")
 sprintf("S2: %.9f", RSS/(length(X1)-2))
 print(t(Xprime)%*%Xprime)
+
+
+# plot the fit
+lines(X1, X%*%beta, col="blue")
+dev.off()
 
