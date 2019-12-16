@@ -29,6 +29,8 @@
 \usepackage[backend=bibtex]{biblatex}
 \usepackage{subcaption}
 \usepackage{gensymb}
+\usepackage{listings}
+\usepackage{pdfpages}
 
 %% tikz for plots
 \usepackage{tikz}
@@ -103,6 +105,19 @@ We see that the distribution of $\hat{\beta}$ is a linear combination of the dis
 \end{equation*}
 Let $A = (X^TX)^{-1}X^T$. If we assume that the $\epsilon_i$ are i.i.d. with $E(\epsilon_i)=0$ and $Var(\epsilon_i)=\sigma^2$ we see that the distribution of $\hat{\beta}_i$ has expectation value $E(\hat{\beta}_i)=\beta_i$ and $Var(\hat{\beta}_i) = (A_i \cdot A_i^T) \sigma^2$. 
 
+We can also use a formula found in \cite{flinn} proposition 2.3:
+
+\noindent \fbox{\parbox{\linewidth}{Let $\epsilon_i$ be i.i.d., $\sigma^2 < \infty$, and let $Q$ be finite and non-singular. Consider the test
+\begin{equation*}
+	H_0: R\beta=r,
+\end{equation*}
+where $R$ is $(1\timesk)$ and $r$ is a a scalar, both known. Then
+\begin{equation*}
+	\frac{R\hat{\beta}-r}{\sqrt{s^2R(X^TX)^{-1}R^T}} \Rightarrow N(0,1)
+\end{equation*}
+}}
+This result was also seen in class. Our interest is in $\beta_1$ so we use as vector $R=(0,1)$. The test value is the same as before, but now we use a standard normal distribution instead of a Student-t distribution to calculate the p-value. This p-value is $0.00865$ so the null hypothesis that $\beta_1=0$ is not valid with this test. The $99\%$ confidence interval for this test is $[-2.575829, 2.575829]$.
+
 \subsection*{(e)}
 \noindent \fbox{Determine a $99\%$ confidence region for $\hat{\beta}$}
 
@@ -113,7 +128,7 @@ We use the formula from section 7.5.4 in the book to find a confidence region fo
 \end{equation}
 Because the matrix $X^TX$ is positive definite, this is an ellips with center $\mathbf{\beta}$ and axes along the eigenvectors of $X^TX$. The upper bound in \ref{eq:conf-region} for the $99\%$ confidence region is: $F_{2,58(0.99) = 4.9910}$ Filling in the values for $X, p=2, n=60$ and $S^2=0.0983$ we get the following result (obtained using the CAS system sympy):
 \begin{equation*}
-	\{ \beta | 5.2596 \alpha^{2} + 0.8222 \alpha \beta - 0.4950 \alpha + 1.6711 \beta^{2} - 0.6629 \beta + 0.0711 \leq 4.9910 \}
+	305.059 \beta_{0}^{2} + 47.688 \beta_{0} \beta_{1} - 638.832 \beta_{0} + 96.923 \beta_{1}^{2} - 86.137 \beta_{1} + 337.895 = 4.9910
 \end{equation*}
 The resulting ellips is plotted in figure \ref{fig:1e}.
 \begin{figure}        
@@ -375,6 +390,18 @@ Robbe for genuinly good input about trying to solve stupid questions
 \printbibliography
 
 %\printinunitsof{in}\prntlen{\textwidth}
+\newpage
+\section*{R-code}
+The code can also be found at: https://github.com/Cubedsheep/statinf-take-home-2.
+
+% R-code
+\lstinputlisting{code1.R}
+\lstinputlisting{code2.R}
+\lstinputlisting{code3.R}
+\lstinputlisting{code4.R}
+
+%notebooks
+\includepdf[pages=-]{Untitled1.pdf}
 
 
 \end{document}

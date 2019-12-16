@@ -112,6 +112,14 @@ dev.off()
 #####
 print("q1-d")
 
+# the test value:
+test_val = coeffs[2]/sqrt(S2* t(C)%*%X_inv%*%C)
+print(test_val)
+print(pnorm(test_val))
+print((1-pnorm(test_val))*2)
+print(qnorm(1-alpha/2))
+
+
 #####
 # e #
 #####
